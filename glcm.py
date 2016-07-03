@@ -9,6 +9,8 @@ from skimage import img_as_ubyte
 from sklearn import linear_model
 
 PATCH_SIZE = 50
+FEATURE_SIZE = 4
+COUNTS = [65*22, 80*22, 87*22, 40*22, 71*22, 58*22, 77*22] # started with 1 and 2
 
 def main():
     image = rgb2gray(misc.imread("x.jpg"));
@@ -91,10 +93,46 @@ def main():
 
 def regression():
     regression_model = linear_model.LinearRegression()
-    regression_model.fit([[1], [-4], [3]], [6, -4, 10])
+    #regression_model.fit([[1], [-4], [3]], [6, -4, 10])
+    regression_model.fit([-1,4,3], [6, -4, 10])
+
     print("y = {}x + {}".format(regression_model.coef_, regression_model.intercept_))
 
+def train():
+    numberOfImages = 2;
+
+    # TODO: AUTOMATICALLY GET NUMBER OF IMAGES
+    # Get number of images. Remeber to divide by 2 as for every relevant image,
+    # theres also the comparison image.
+    # if ".DS_Store" in os.listdir("Wheat_ROIs"):
+    #     numberOfImages = (len(os.listdir("Wheat_ROIs")) - 1)/2;
+    # else:
+    #     numberOfImages = len(os.listdir("Wheat_ROIs"))/2;
+
+    featureList = np.zeros((numberOfImages, FEATURE_SIZE))
+
+    # For each ROI image in folder
+    for i in range(1, numberOfImages+1):
+        # Load image
+        filename = "Wheat_Images/{:03d}.jpg".format(i);
+        img = misc.imread(filename);
+        img_gray = img_as_ubyte(rgb2gray(img));
+
+        glcm = greycomatrix(img_gray, [5], [0], 256, symmetric=True, normed=True)
+        dissimilarity = greycoprops(glcm, 'dissimilarity')[0, 0]
+        correlation = greycoprops(glcm, 'correlation')[0, 0]
+        homogeneity = greycoprops(glcm, 'homogeneity')[0, 0]
+        energy = greycoprops(glcm, 'energy')[0, 0]
+        feature = np.array([dissimilarity, correlation, homogeneity, energy])
+        featureList[i-1] = feature
+        #print("{} = {}A + {}B + {}C + {}D".format(filename, dissimilarity, correlation, homogeneity, energy))
+        #print(feature)
+
+    # Build regression model
+    regression_model = linear_model.LinearRegression()
+    regression_model.fit(featureList, COUNTS)
+    print("COEFF: {}\nINTERCEPT: {}".format(regression_model.coef_, regression_model.intercept_))
 
 
 main();
-#regression();
+#train();
