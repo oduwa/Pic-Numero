@@ -1,23 +1,33 @@
 import sys, platform
 import gui_checkbox_handlers
 import spectral_roi
+import Helper
+import Display
 from PIL import Image
 from PIL.ImageQt import ImageQt
 from skimage import img_as_ubyte, io
 from PyQt4 import QtCore, QtGui
 from Foundation import NSURL
 
-def updateLabelToShowImage(label, filename, width=240, height=240):
+CLUSTER_IMAGE_FILENAME = "spectral_cluster.png"
+
+def updateLabelToClusterShowImage(displayLabel, filename, width=240, height=240):
     # Compute cluster memberships
-    clusterImageFilename = "spectral_cluster.png"
-    spectral_roi.spectral_cluster(filename, clusterImageFilename)
+    spectral_roi.spectral_cluster(filename, CLUSTER_IMAGE_FILENAME)
 
     # Display result
-    picture = Image.open(clusterImageFilename)
+    picture = Image.open(CLUSTER_IMAGE_FILENAME)
     picture.thumbnail((width,height), Image.ANTIALIAS)
     pixmap = QtGui.QPixmap.fromImage(ImageQt(picture))
-    label.setPixmap(pixmap)
-    label.setFixedSize(width, height)
+    displayLabel.setPixmap(pixmap)
+    displayLabel.setFixedSize(width, height)
+
+def updateLabelToShowImage(displayLabel, filename, width=240, height=240):
+    picture = Image.open(filename)
+    picture.thumbnail((width,height), Image.ANTIALIAS)
+    pixmap = QtGui.QPixmap.fromImage(ImageQt(picture))
+    displayLabel.setPixmap(pixmap)
+    displayLabel.setFixedSize(width, height)
 
 class DraggableTextField(QtGui.QLineEdit):
 
@@ -46,7 +56,7 @@ class DraggableTextField(QtGui.QLineEdit):
            self.parent.setImageFilePath(pixPath)
 
            # Display image from url
-           updateLabelToShowImage(self.parent.getImageLabel(), pixPath, self.parent.frameSize().width()*0.5, self.parent.frameSize().height()*0.5)
+           updateLabelToClusterShowImage(self.parent.getImageLabel(), pixPath, self.parent.frameSize().width()*0.5, self.parent.frameSize().height()*0.5)
 
 class AppWindow(QtGui.QWidget):
 
@@ -54,6 +64,7 @@ class AppWindow(QtGui.QWidget):
       super(AppWindow, self).__init__()
       self.imageLabel = None
       self.imageFilePath = None
+      self.RoiFilePath = None
       self.initUI()
 
     def getLayout(self):
@@ -65,18 +76,21 @@ class AppWindow(QtGui.QWidget):
     def setImageFilePath(self, path):
         self.imageFilePath = path
 
+    def getImageFilePath(self):
+        return self.imageFilePath
+
     def didClickFileSelectButton(self, event):
         fname = str(QtGui.QFileDialog.getOpenFileName(self, 'Open file',''))
         self.setImageFilePath(fname)
-        updateLabelToShowImage(self.imageLabel, fname, self.frameSize().width()*0.5, self.frameSize().height()*0.5)
+        updateLabelToClusterShowImage(self.imageLabel, fname, self.frameSize().width()*0.5, self.frameSize().height()*0.5)
 
     def didClickSubmitButton(self, event):
         print(self.imageFilePath)
-        img = img_as_ubyte(io.imread(self.imageFilePath))
+        img = img_as_ubyte(io.imread(CLUSTER_IMAGE_FILENAME))
         roi_img = spectral_roi.extract_roi(img, gui_checkbox_handlers.getSelectedClusters())
-        roi_img_filename = Helper.generate_random_id()
-        io.imsave("{}.png".format(roi_img_filename), roi_img)
-        updateLabelToShowImage(self.imageLabel, roi_img_filename, self.frameSize().width()*0.5, self.frameSize().height()*0.5)
+        roi_img_filename = "{}.png".format(Helper.generate_random_id())
+        io.imsave(roi_img_filename, roi_img)
+        Display.show_image(roi_img, roi_img_filename)
 
 
     def initUI(self):
@@ -117,16 +131,16 @@ class AppWindow(QtGui.QWidget):
       layout.addRow(magentaCheckBox, yellowCheckBox)
 
       # Create submit button and add to layout
-      submitButton = QtGui.QPushButton('Remove Selected Clusters', self)
+      submitButton = QtGui.QPushButton('Select Clusters as ROI', self)
       submitButton.clicked.connect(self.didClickSubmitButton)
       layout.addRow(submitButton)
 
 
       self.setLayout(layout)
       self.layout = layout
-      self.setWindowTitle('Simple drag & drop')
+      self.setWindowTitle('Spectral ROI Extractor')
 
-def drag_drop_test():
+def main():
     # Create an PyQT4 application object.
     a = QtGui.QApplication(sys.argv)
 
@@ -134,10 +148,7 @@ def drag_drop_test():
     w = AppWindow()
 
     # Set window size.
-    w.resize(320, 320)
-
-    # Set window title
-    w.setWindowTitle("Drag & Drop")
+    w.resize(960, 640)
 
     # Show window
     w.show()
@@ -145,5 +156,4 @@ def drag_drop_test():
     sys.exit(a.exec_())
 
 
-#window_test();
-drag_drop_test();
+main();
