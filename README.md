@@ -1,3 +1,3 @@
 # Wheat-Count
 
-Experimentation with approaches to counting grains in wheat images
+Repository of experimentation with approaches to counting grains in wheat images
