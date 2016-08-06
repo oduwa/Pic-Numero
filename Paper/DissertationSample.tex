@@ -1,0 +1,169 @@
+% ------------------------------------------------------------------------
+% A Latex "template" for CMP MSc Dissertation
+% Produced by Dr. Wenjia Wang through modification of 
+% Stanford University PhD thesis style file.  
+% 
+% Brief Instructions
+%#### 
+% 1. Write your abstract in a separate tex file and name it as ABS.tex
+% 2. Write your acknowledgement in a separate tex file and name it as ACK.tex  
+%   Note :  Both ABS and ACK files are already included in the style file. 
+% 3. wirte each chapter in a separate tex file and name e.g. Ch1, Ch2, etc. 
+% and then use "include" to inlcude them as shown in this example.
+
+% Disclaimer: This template is provided as it is 
+% You may use it as you wish, 
+% but Dr. Wang won't be resposible for resolving any problems it has or causes.
+%
+% 
+% ------------------------------------------------------------------------
+\documentclass[12pt]{report}
+\usepackage[centertags]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{newlfont}
+\usepackage{graphicx}
+\usepackage{apalike} % by wjw
+\usepackage{pdfsync} %PDF Forward Search
+
+\usepackage{CMPDissertation} %CMP Dissertation Style
+
+\usepackage{xtocinc} %Include Table of Contents as the first entry in TOC
+%                     Faculty of Grad Studies insists on this!?
+%\usepackage[active]{srcltx}  %SRC Specials for DVI search
+% Fuzz -------------------------------------------------------------------
+\hfuzz2pt % Don't bother to report over-full boxes if over-edge is < 2pt
+% Line spacing -----------------------------------------------------------
+\newlength{\defbaselineskip}
+\setlength{\defbaselineskip}{\baselineskip}
+\newcommand{\setlinespacing}[1]%
+           {\setlength{\baselineskip}{#1 \defbaselineskip}}
+\newcommand{\doublespacing}{\setlength{\baselineskip}%
+                           {2.0 \defbaselineskip}}
+\newcommand{\singlespacing}{\setlength{\baselineskip}{\defbaselineskip}}
+% MATH -------------------------------------------------------------------
+\newcommand{\A}{{\cal A}}
+\newcommand{\h}{{\cal H}}
+\newcommand{\s}{{\cal S}}
+\newcommand{\W}{{\cal W}}
+\newcommand{\BH}{\mathbf B(\cal H)}
+\newcommand{\KH}{\cal  K(\cal H)}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\Complex}{\mathbb C}
+\newcommand{\Field}{\mathbb F}
+\newcommand{\RPlus}{[0,\infty)}
+%
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\essnorm}[1]{\norm{#1}_{\text{\rm\normalshape ess}}}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\seq}[1]{\left<#1\right>}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\RE}{\operatorname{Re}}
+\newcommand{\IM}{\operatorname{Im}}
+\newcommand{\Poly}{{\cal{P}}(E)}
+\newcommand{\EssD}{{\cal{D}}}
+% THEOREMS ---------------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+%
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+%
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+%
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+%%% ----------------------------------------------------------------------
+\setlength{\tclineskip}{1.05\baselineskip}
+%%% ----------------------------------------------------------------------
+%\nobib
+%\draft
+%\nofront
+
+%\permissionfalse
+
+\dedicate{}
+
+%\nolistoftables
+%\nolistoffigures
+
+\msc
+
+%\phd
+\university{The University of East Anglia}
+\school{Computing Sciences}
+
+%#### CHOOSE OR INSERT YOUR MSC COURSE TITLE BELOW #####
+% by commentting in your course from the liste befow.
+
+\course{Advanced Computing Science}
+%\course{Computing Science}
+%\course{Games Development}
+%\course{Information Systems}
+%\course{Data Mining and Knowledge Discovery}
+%\course{Computational Biology}
+
+\copyrightyear{2012}
+\submitdate{August 2012}
+%\convocation{October}{2012}
+
+% ------------------------------------------------------------------------
+% #### Insert the title of your dissertation below.#####
+\title{Dissertation Title}
+
+% #### Insert your full name below.#####
+\author{John Smith}
+
+%#### insert your supervisor's name below #####
+\supervisor{ Dr. X. XXX}
+
+%#### insert the name of your markers if you know them #####
+\firstmarker{Marker 1: Dr. xxxxxx}
+\secondmarker{Marker 2: Dr. xxxxxx}
+\examiner{Checker/Moderator}
+\organiser{Dr. Wenjia Wang}
+
+% ------------------------------------------------------------------------
+\begin{document}
+{
+\typeout{:?000000000} % Don't bother with over/under-full boxes
+\beforepreface
+\typeout{:?111111111} % Process All Errors from Here on
+}
+
+\afterpreface
+\def\baselinestretch{1}
+\setlinespacing{1.66}
+
+% ------------------------------------------------------------------------
+% ##### Include each chapter in order below #####
+\include{Ch1}
+\include{Ch2}
+%\include{Ch3}
+%\include{Ch4} 
+%
+% 
+%\include{Evaluation and Discussion}
+\include{conclusion} 
+
+% ------------------------------------------------------------------------
+\setlinespacing{1.44}
+%\bibliographystyle{amsplain}
+\bibliographystyle{apalike}
+\bibliography{xbib}
+
+%#### Include any appendix below #####
+\appendix
+\include{AppendixA}
+%\include{AppendixB}
+
+% =================================================================
+\end{document}
+% ------------------------------------------------------------------------

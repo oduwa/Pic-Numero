@@ -1,0 +1,628 @@
+%
+% University of East Anglia Dissertation Style
+% School of Computing Sciences.
+%
+% Modification by wjw.
+%
+%-% Stanford University PhD thesis style -- modifications to the report style
+%-% For LaTeX version 2.09
+%-% Last edit Tue Sep 13 14:40:26 2011
+%-% Last edit by Dr. Wenjia Wang, CMP
+%
+% Modifications by wjw, Set. 2005, based on the Latex samples Thesis in WinEdt
+%
+%       - Changed baselinestretch to 1.37.
+%       - Changed \school default to MS&CS and other name changes.
+%       - Allow user to specify university and faculty
+%       - Changed page headings to be page number only, except on
+%         the first page of each chapter (page number at bottom).
+%       - Redefined title and signature page.
+%       - Added optional permission page (formly supplied by
+%         Graduate Studies).  Page skipped if omitted.
+%       - User can define degree to be recieved.
+%         \msc (default), \ma, and \phd provided.
+%       - Signature page slightly different for Ph.D.
+%       - Two to three markers' signatures for Masters thesis,
+%         three to five markers' signatures for Ph.D.
+%       - Convocation date is either given or calculated.
+%       - Two supervisors supported.
+%       - Added dedication page environment.
+%       - List of tables and figures recorded in table of
+%         contents.
+%       - User can omit front material or bibliography for
+%         draft printing purposes.
+%       - User can specify draft copies, "draft copy" and date
+%         printed on title page and headers.
+%       Bugs:
+%       - TeX complains too much about the front material, ignore
+%         under/overfull box messages on pages ii and iii.
+%         (Better yet, can somebody fix this?)
+%       - Cannot handle school name more than 4-5 characters
+%         longer than MS&CS (does one exist?).
+%       - Occassional screw ups when adding diferent university,
+%         school and faculty names.
+%       - Would also have difficultly with very long author names.
+%
+% Modifications by Steven Matheson, Sept 1992
+%       - Added the forgotten `` \\'' after thrid signature on signature page,
+%         caused third and fourth signatures to be too close.
+%
+% Last edit by wjw Sept. 2010
+%
+
+\typeout{Document Style Option `cmpthesis'.}
+
+\long\def\comment#1{}
+\comment{
+
+  Example of use:
+    \documentstyle[12pt,cmpthesis]{report}
+    \begin{document}
+    \title{How to Write Theses\\
+	    With Two Line Titles}
+    \author{John Smith Candidate}
+    \supervisor{John Parker}
+    \firstmarker{John Green}
+    \secondmarker{John BigBooty}
+
+    \dedicate{
+	This is the optional\\
+	dedication page.\\
+	Break lines up\\
+	like this.
+    }
+
+    \beforepreface
+
+    \prefacesection{Abstract}
+	An abstract is required in all theses.  Make sure that it fits
+	on one page!
+
+    \afterpreface
+
+    \chapter{Introduction}
+	 ...
+    \chapter{Conclusions}
+	 ... ...
+%    \bibliographystyle{plain}
+    \bibliographystyle{apalike}
+    \bibliography{mybib} 
+    
+% Appendix should be placed after bibliogrphy
+    \appendix
+    \chapter{A Long Proof}
+    
+    \end{document}
+
+Documentation:
+    This style file modifies the standard report style to follow the
+    Faculty of Science, the University of East Anglia, "Regulations for
+    Submission of Theses".  It sets the margins and required interline
+    spacing and disallows page breaks at hyphens.
+
+    The \beforepreface command creates the title page, a signature page,
+    and a permission page (optionally).  Then the user should put
+    preface section(s), using the \prefacesection{section title}
+    command.  The \afterpreface command then produces the tables of
+    contents, tables and figures (optionally), and sets things up to
+    start the main body (on arabic page 1).
+
+    The following commands control the typesetting of your thesis:
+
+   Basic Information:
+
+	\title{thesis title}
+		- Will appear in large print on page i.  If it is too
+		  long it will automatically be split into separate
+		  lines.  If you wish to specify line breaks, use the
+		  \\ command inside the title.
+		  \title{Very Long\\Title\\Split Over\\Several Lines}
+		  Make sure that there is no space before \\.
+
+	\author{author's name}
+		- Your name as you wish it to appear in the thesis.
+
+   Graduation and Submission Information:
+
+	\submitdate{month year in which submitted to Graduate Studies}
+		- date LaTeX'd if omitted
+
+	\copyrightyear{year thesis}
+		- year LaTeX'd if omitted
+
+	\convocation{month}{year}
+		- Date set to next May or Oct. after \submitdate if omitted
+
+   Degree Specification:
+
+	\msc
+		- Degree to obtain is Master of Science, M.Sc. (default)
+	\ma
+		- Degree to obtain is Master of Arts, M.A.
+	\phd
+		- Degree to obtain is Doctor of Philosophy, Ph.D.
+
+   Signatures:
+
+	\examiner{the external examiner's name}
+		- Use only for Ph.D.
+	\supervisor{the supervisor's name}
+		- Include research supervisor's name.
+	\firstmarker{the first marker's name}
+		- Include the first marker's name.
+	\secondmarker{the second marker's name}
+		- Include the second marker's name.
+	\thirdmarker{the third marker's name}
+		- Omit this command if only two markers (typical M.Sc. case)
+		- Ph.D. cases usually have at least three markers
+	\fourthmarker{the fourth  marker's name}
+		- Omit this command if not required (typical Ph.D. case)
+	\organiser{the module organiser's name}
+		- Omit this command if not required (typical Ph.D. case)
+
+	Sorry, provisions has been made to allow only seven signatures.
+
+
+   Sectioning commands::
+
+	\dedicate{
+	  First line\\
+	  second line\\
+	  last line.
+	}
+		- Produces the optional dedication page.  Must be placed
+		  before the \beforepreface command.
+	
+	\prefacesection{Whatever}
+	Blah, blah, blah...
+		- Produces a preface section, such as abstract,
+		  acknowledgments, etc.  This must appear between
+		  \beforepreface and \afterpreface commands.
+		  Typeset similar to chapters, not numbered.
+
+	\chapter{Whatever}
+	Blah, blah, blah...
+		- Produce a numbered chapter section.
+
+	\section{Section name}
+		- Place prior to a section of a given chapter.
+	
+	\subsection{Subsection name}
+		- Place prior to a subsection of a given section.
+
+	\appendix
+		- Place this command before your first appendix chapter.
+		  Use the \include command thereafter.  These will be
+		  lettered, not numbered.
+
+	\nonumchapter{Whatever}
+	Blah, blah, blah...
+		- Produces a chapter section that is not to be numbered,
+		  such as an introduction chapter.  This is used in the
+		  same way as the \chapter command.
+
+   Printing draft copies:
+
+	\draft
+		- For printing draft copies of the thesis.  Specifies
+		  on page headers that the copy is draft and specifies
+		  the date printed.  Also specifies draft and date on
+		  the title page.
+	\nofront
+		- Specifies not to print the signature and permission
+		  pages, table of contents, and the lists of figures and
+		  tables.  Useful for draft copies to cut done on printing.
+	\nobib
+		- Suppresses the printing of the bibliiography.
+		  Useful for draft copies to cut done on printing.
+
+   Specialized commands:
+
+	\nolistoffigures
+		- don't produce a List of Figures
+	\nolistoftables
+		- don't produce a List of Tables
+	\twosupervisors
+		- Use if you have two co-supervisors instead of one supervisor.
+		  Name given by \supervisor{} will go first, \firstmarker{}
+		  will be second.  Can be used with Ph.D. format.
+	\univerity{name of university}
+		- ``University of East Anglia'' default.  Can specify line breaks
+		  for larger names.
+	\address{university address}
+		- ``Norwich, UK'' default.
+	\school{author's school}
+		- ``Computing Sciences'' default
+	\course{author's course}
+			- ``Computing Sciences'' default
+	\faculty{degree granting faculty}
+		- [Faculty of] ``Science'' default
+	\degree{Full Degree Title}
+	\degreeinitial{F.D.T.}
+		- Specify degree name and initials
+		  \degree{Master of Computing Science}
+		  \degreeinitial{MCS}
+	\permissionfalse
+		- don't produce a permission page (true by default)
+
+This style uses interline spacing that is 1.37 times normal, except
+in the figure and table environments where normal spacing is used.
+That can be changed by doing:
+
+    \renewcommand{\baselinestretch}{1.5}
+(or whatever you want instead of 1.5)
+
+Unfortunately, that command probably won't take effect unless it comes
+before the \begin{document} or after a type size changing command like
+\small or \normalsize.
+
+The example above shows the 12pt substyle being used.  This is required
+for submission copy, but it may be omitted to get smaller draft print.
+Note that the front material may not look good in smaller print.
+
+}
+
+% Define the page heading to be page number only.
+\newcommand{\properpagestyle}{
+	   \pagestyle{myheadings}\markboth{}{}\markright{}}
+
+% First thing we do is make sure that report has been loaded.  A
+% common error is to try to use suthesis as a documentstyle.
+\@ifundefined{chapter}{\@latexerr{The `cmpthesis' option should be used
+with the `report' document style}{You should probably read the
+cmpthesis documentation.}}{}
+
+% We need 1" margins except on the binding edge, where it is 1 1/2"
+% Theses are single-sided, so we don't care about \evensidemargin
+\oddsidemargin 0.5in \evensidemargin 0in
+\marginparwidth 40pt \marginparsep 10pt
+\topmargin 0pt \headsep .5in
+\textheight 8.1in \textwidth 6in
+
+% Disallow page breaks at hyphens (this will give some underfull vbox's,
+% so an alternative is to use \brokenpenalty=100 and manually search
+% for and fix such page breaks)
+\brokenpenalty=10000
+
+% Use 1.37 times the normal baseline-to-baseline skip
+\renewcommand{\baselinestretch}{1.37}
+
+% Redefine the macro used for footnotes to use single spacing
+\long\def\@footnotetext#1{\insert\footins{\def\baselinestretch{1}\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxschoolh \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+   \edef\@currentlabel{\csname p@footnote\endcsname\@thefnmark}\@makefntext
+    {\rule{\z@}{\footnotesep}\ignorespaces
+      #1\strut}}}
+
+% \author, \title are defined in report; here are the rest of the
+% front matter defining macros
+\def\university#1{\gdef\@university{#1}}
+\def\address#1{\gdef\@address{#1}}
+\def\school#1{\gdef\@school{#1}}
+\def\course#1{\gdef\@course{#1}}
+\def\faculty#1{\gdef\@faculty{#1}}
+\def\supervisor#1{\gdef\@supervisor{#1}}
+\def\superviser#1{\gdef\@supervisor{#1}}
+\def\firstmarker#1{\gdef\@firstmarker{#1}}
+\def\secondmarker#1{\gdef\@secondmarker{#1}}
+\def\thirdmarker#1{\gdef\@thirdmarker{#1}\third@markertrue}
+\def\fourthmarker#1{\gdef\@fourthmarker{#1}\fourth@markertrue}
+\def\organiser#1{\gdef\@organiser{#1}\module@markertrue}
+\def\examiner#1{\gdef\@examiner{#1}}
+\def\twosupervisors{\two@supervisorstrue}
+\def\submitdate#1{\gdef\@submitdate{#1}}
+\def\copyrightyear#1{\gdef\@copyrightyear{#1}} % \author, \title in report
+\def\degree#1{\gdef\@degree{#1}}
+\def\degreeinitial#1{\gdef\@degreeinitial{#1}}
+\def\msc{\degree{Master of Science}\degreeinitial{M.Sc.}}
+\msc % default degree
+\def\phd{\degree{Doctor of Philosophy}\degreeinitial{Ph.D.}\ph@dtrue}
+\def\ma{\degree{Master of Arts}\degreeinitial{M.A.}}
+\def\@title{}
+\def\@author{}
+\def\@university{University of East Anglia}
+\def\@address{Norwich, UK}
+\def\@school{Computing Sciences}
+\def\@faculty{Science Graduate Studies}
+\def\@supervisor{}\def\@firstmarker{}\def\@secondmarker{}
+\def\@thirdmarker{}\def\@fourthmarker{}\def\@organiser{}
+\def\@examiner{}
+\def\@submitdate{\ifcase\the\month\or
+  January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or December\fi
+  \space \number\the\year}
+\def\@copyrightyear{\number\the\year}
+
+\def\convocation#1#2{\gdef\@convocationmonth{#1}\gdef\@convocationyear{#2}}
+\def\@convwarn{\typeout{Warning!  Convocation date may be incorrect!}}
+\ifnum\month<5
+   \def\@convocationmonth{May}
+   \def\@convocationyear{\number\the\year\@convwarn}
+\else\ifnum\month<10
+   \def\@convocationmonth{October}
+   \def\@convocationyear{\number\the\year\@convwarn}
+\else
+   \def\@convocationmonth{February}
+   \@tempcnta=\year  \advance\@tempcnta by 1
+   \def\@convocationyear{\number\the\@tempcnta\@convwarn}
+\fi\fi
+
+\def\dedicate#1{\dedic@tiontrue\gdef\dedication@text{#1}}
+
+\def\draft{\renewcommand{\properpagestyle}{\pagestyle{myheadings}
+\markright{{\rm Draft Version -- \today}}}\draft@modetrue\properpagestyle}
+\def\nobib{\print@bibfalse}
+\def\nolistoffigures{\figurespagefalse}
+\def\nolistoftables{\tablespagefalse}
+\def\nofront{\front@pagesfalse\permissionfalse\figurespagefalse\tablespagefalse}
+
+% New if constructs:    Default conditions:
+\newif\ifpermission     \permissiontrue
+\newif\iffigurespage    \figurespagetrue
+\newif\iftablespage     \tablespagetrue
+\newif\iffront@pages    \front@pagestrue
+\newif\ifthird@marker   \third@markerfalse
+\newif\iffourth@marker  \fourth@markerfalse
+\newif\ifmodule@marker   \module@markerfalse
+\newif\ifph@d           \ph@dfalse
+\newif\iftwo@supervisors \two@supervisorsfalse
+\newif\ifdraft@mode     \draft@modefalse
+\newif\ifprint@bib      \print@bibtrue
+\newif\ifdedic@tion     \dedic@tionfalse
+
+\def\no@breaks#1{{\def\\{ \ignorespaces}#1}}    % disallow explicit line breaks
+
+\def\titlep{%
+	\thispagestyle{empty}%
+	\ifdraft@mode
+	  \begin{center} \Large DRAFT COPY\\ \large Printed \today \end{center}
+	\fi
+	\null\vskip0.5in
+	\begin{center}
+		\hyphenpenalty=10000\Large\uppercase\expandafter{\@title}
+	\end{center}
+	\vfill
+	\begin{center}
+		\large\rm \@author
+	\end{center}
+	\vfill
+	\begin{center}
+%
+%		\footnotesize SUBMITTED IN PARTIAL FULFILLMENT OF THE \\
+%		REQUIREMENTS FOR THE DEGREE OF \\
+%		\uppercase\expandafter{\@degree} \\
+%		AT \\
+%		\uppercase\expandafter{\@university} \\
+%		\uppercase\expandafter{\@address} \\
+%		\uppercase\expandafter{\@submitdate}
+
+		\footnotesize A Dissertation submitted to \\
+	    the School of \expandafter{\@school} of   
+        \expandafter{\@university} \\
+        in partial fulfilment of the requirements for the degree of \\
+		\uppercase\expandafter{\@degree}. \\
+		\uppercase\expandafter{\@submitdate}
+
+	\end{center}
+	\vskip0.75in
+	\begin{center}
+    \scriptsize \copyright\ 
+% \@author, 
+    This Dissertation has been supplied on condition that anyone who consults 
+    it is understood to recognise that its copyright rests with the author 
+    and that no quotation from the dissertation, nor any information derived therefrom, 
+    may be published without the author or the supervisor's prior consent.\\
+%    \@copyrightyear
+	\end{center}\newpage}
+
+\def\signature#1#2{\parbox[b]{1in}{\smash{#1}\vskip12pt}
+\hfill \parbox[t]{3in}{\shortstack{\vrule width 3in height 0.4pt\\\small#2}}}
+
+\def\signaturepage{%
+	\setcounter{page}{2}
+	\begin{quotation}
+	\begin{center} 
+	%	\uppercase\expandafter{\@university} \\
+	%  THE SCHOOL OF \uppercase\expandafter{\@school}\\
+
+        SUPERVISOR(S), MARKERS/CHECKER AND ORGANISER 
+	\end{center}
+	\vskip 0.25in plus 0.4in minus 0.1in
+	\hyphenpenalty=10000
+	\parindent=36pt
+	\begin{sloppypar}
+	The undersigned hereby certify that the markers have independently marked the dissertation entitled
+	\linebreak[3] ``{\bf \no@breaks{\@title}}''
+	\linebreak[3] by \mbox{\bf\@author}, and the external examiner has checked the marking, 
+	in accordance with the marking criteria 
+	and the requirements for the degree of 	\linebreak[2] \mbox{\bf\@degree}. \\
+	\end{sloppypar}
+	\vskip0.2in plus 1fill minus 0.1in
+%	\begin{flushright}
+%	Dated: \underbar{\ \@submitdate\ }
+%	\end{flushright}
+
+	\iffourth@marker
+		\def\sigskip{\vskip0.15in plus 0.2in minus 0.1in}
+		\def\beginskip{\vskip0.3875in plus 0.2in minus 0.1in}
+	\else
+		\def\sigskip{\vskip0.4in plus 0.1in}
+		\def\beginskip{\vskip0.5875in plus 0.1in}
+	\fi
+
+	\ifph@d
+		\beginskip
+		\signature{External Examiner:}{\@examiner} \\
+
+		\iftwo@supervisors
+		  \sigskip \signature{Research Supervisors:}{\@supervisor} \\
+		  \sigskip \signature{}{\@firstmarker} \\
+		  \sigskip \signature{Examining Committee:}{\@secondmarker} \\
+		\else
+		  \sigskip \signature{Research Supervisor:}{\@supervisor} \\
+		  \sigskip \signature{Examination Board:}{\@firstmarker} \\
+		  \sigskip \signature{}{\@secondmarker} \\
+		\fi
+	\else % not Ph.D. degree:
+		\beginskip
+		\iftwo@supervisors
+		  \signature{Supervisors:}{\@supervisor} \\
+		  \sigskip \signature{}{\@firstmarker} \\
+		  \ifthird@marker
+		    \sigskip \signature{Markers:}{\@secondmarker} \\
+		  \else
+		    \sigskip \signature{Marker:}{\@secondmarker} \\
+		  \fi
+		\else
+		  \signature{Supervisor:}{\@supervisor} \\
+		  \sigskip \signature{Markers:}       {\@firstmarker} \\
+		  \sigskip \signature{}{\@secondmarker} \\
+		\fi
+		\sigskip \signature{External Examiner:}{\@examiner} \\
+	\fi
+
+		\ifthird@marker
+		  \sigskip \signature{}{\@thirdmarker} \\
+		\fi
+
+		\iffourth@marker
+		  \sigskip \signature{}{\@fourthmarker} \\
+		\fi
+
+		\ifmodule@marker
+		  \sigskip \signature{Moderator:}{\@organiser} \\
+		\fi
+
+	\end{quotation}
+	\vfill\newpage\setcounter{page}{3} }
+
+\def\permissionpage{%
+	{\newpage \parindent=0.75in \hyphenpenalty=10000
+	\begin{quotation}
+	\begin{center}
+		\large \uppercase\expandafter{}
+		%{\@university}\\
+		        DISSERTATION INFORMATION AND STATEMENT
+	\end{center}
+	\bigskip
+	\begin{flushright}
+		Dissertation Submission Date: {\bf\@submitdate}
+	\end{flushright}
+	\begin{list}{}{
+		\setlength{\leftmargin}{1in}
+		\setlength{\labelwidth}{0pt}
+		\setlength{\labelsep}{\leftmargin}}
+	\raggedright
+	\item[\hbox to 0pt{Student:}]    {\bf\@author}
+	\item[\hbox to 0pt{Title:}]     {\bf\no@breaks{\@title}}
+	\item[\hbox to 0pt{School:}]  	{\bf\@school}
+	\item[\hbox to 0pt{Course:}]  	{\bf\@course}
+    \item[\hbox to 0pt{Degree:}]  	{\bf\@degreeinitial}
+    \item[\hbox to 0pt{Year:}]  	{\bf\@convocationyear}
+    \item[\hbox to 0pt{Organiser:}] 	{\bf\@organiser}
+    \end{list}
+%	Degree: {\bf\@degreeinitial\hfil}
+	%	Convocation: {\bf\@convocationmonth\hfil}
+%	Year: {\bf\@convocationyear\hfil} \\
+	\bigskip
+	\def\baselinestretch{1}\@normalsize
+	\parindent=36pt
+\noindent
+STATEMENT:\\ 
+	\indent
+	{\small Unless otherwise noted or referenced in the text, the work described in this dissertation is, 
+	to the best of my knowledge and belief, my own work. It has not been submitted, 
+	either in whole or in part for any degree at this or any other academic or professional institution.}
+	
+	\indent
+	{\small Permission is herewith granted to \no@breaks{\@university}
+	to circulate and to have copied for non-commercial purposes, at its
+	discretion, the above title upon the request of individuals or
+	institutions.}
+
+	\vskip1.5in
+	\signature{}{{\small Signature of Student}}
+
+	\bigskip\bigskip
+
+	\begin{sloppypar}
+	\footnotesize
+	\relax
+%	THE AUTHOR RESERVES OTHER PUBLICATION RIGHTS, AND NEITHER
+%	THE THESIS NOR EXTENSIVE EXTRACTS FROM IT MAY BE PRINTED OR
+%%	OTHERWISE REPRODUCED WITHOUT THE AUTHOR'S WRITTEN PERMISSION.
+%	\medskip
+%
+%	THE AUTHOR ATTESTS THAT PERMISSION HAS BEEN OBTAINED FOR THE
+%	USE OF ANY COPYRIGHTED MATERIAL APPEARING IN THIS DISSERTATION (OTHER
+%	THAN BRIEF EXCERPTS REQUIRING ONLY PROPER ACKNOWLEDGEMENT IN
+%	SCHOLARLY WRITING) AND THAT ALL SUCH USE IS CLEARLY ACKNOWLEDGED.
+	\end{sloppypar}
+	\end{quotation}
+	} \vfill}
+
+\def\beforepreface{
+\typeout{Most over/underfulls in first few pages are the fault of cmpthesis.}
+\typeout{Ignore all them.  If uncorrectable errors occur, notify staff.}
+	\pagenumbering{roman}
+	\pagestyle{plain}
+	\titlep
+	\iffront@pages\signaturepage\else\addtocounter{page}{1}\fi
+	\ifpermission\permissionpage\else\addtocounter{page}{1}\fi
+	
+%	\iffront@pages\ifdedic@tion
+%		\newpage\begin{center}\Large\em\null\vskip1in
+%		\dedication@text
+%		\vfill\end{center}
+%	\fi\fi
+
+    {\typeout{Abstract} \include{ABS}}
+    {\typeout{Acknowledgements}\include{ACK}}
+
+	\iffront@pages\tableofcontents\else\addtocounter{page}{1}\fi
+	\newpage
+	\iftablespage
+		\addcontentsline{toc}{chapter}{List of Tables}\listoftables
+		\newpage
+	\fi
+	\iffigurespage
+		\addcontentsline{toc}{chapter}{List of Figures}\listoffigures
+		\newpage
+	\fi
+	}
+
+\def\nonumchapter#1{%
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}}
+
+\def\prefacesection#1{%
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}}
+
+\newenvironment{dedication}{\newpage\begin{center}\Large\em\null\vskip1in}%
+{\vfill\end{center}}
+
+
+\def\afterpreface{\newpage
+	\pagenumbering{arabic}
+	\typeout{Cmpthesis preface pages completed.}
+	\properpagestyle}
+
+% Redefine \thebibliography to go to a new page and put an entry in the
+% table of contents
+\let\@ldthebibliography\thebibliography
+\renewcommand{\thebibliography}[1]{%
+	\newpage
+	\addcontentsline{toc}{chapter}{Bibliography}
+	\@ldthebibliography{#1}
+}
+
+\let\@ldbibliography\bibliography
+\renewcommand{\bibliography}[1]{\ifprint@bib\@ldbibliography{#1}\fi}
+
+% Start out normal
+\properpagestyle
+
