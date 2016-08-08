@@ -1,6 +1,14 @@
 % ------------------------------------------------------------------------
 % -*-TeX-*- -*-Hard-*- Smart Wrapping
 % ------------------------------------------------------------------------
+
+% REF\_1 - http://neuralnetworksanddeeplearning.com/chap1.html
+
+% REF\_2 - Large-Scale Machine Learning with Stochastic Gradient Descent Leon Bottou
+
+% REF\_3 - Chin-Wei Hsu, Chih-Chung Chang and Chih-Jen Lin (2010). A practical guide to support vector classification. Technical Report, National Taiwan University.
+
+
 \def\baselinestretch{1}
 
 \chapter{Evaluation and Discussion}
@@ -14,13 +22,48 @@
 %%% ----------------------------------------------------------------------
 \goodbreak
 
-\section{Evaluation Methodology}
-Cross-validation etc. 
+\section{Model Description and Evaluation}
+\subsection{The Model}
+The model used for the prediction (and in essence, detection) of grains was the artificial neural network using the Multi-Layer Perceptron (MLP) learning algorithm. The MLP made use of the \textit{\textbf{sigmoid function $\sigma$}} (also known as the \textbf{\textit{logistic function}}) as its activation function (REF\_1). The sigmoid function is as follows:
+\begin{equation}
+\sigma(x) = \frac{1}{1 + e^{-x}}
+\end{equation}
+The MLP used the \textit{\textbf{stochastic gradient descent}} algorithm for tuning its weights (REF\_2). Neural network possess a number of \textit{hyperparameters} which cannot be learned by fitting the model to the data but could influence their performance greatly. In particular, the MLP neural network used for this task had the following hyperparameters:
+\begin{itemize}
+\item \textit{hidden layer arrangement} - This refers to the number of hidden layers in the network as well as the number of neurons in each layer.
+\item \textit{alpha} - This is the \textit{L2} regularization penalty for minimizing prediction error
+\item \textit{learning rate} - This controls how quickly the gradient descent algorithm travels down the slope to find the minimum of the cost function when tuning the weights of the neurons.
+\item \textit{batch size} - This refers to the size of the mini-batches chosen by the stochastic gradient descent algorithm to speed up the learning process
+\end{itemize}
+In order to get the best performance from the MLP, an attempt was made to determine the optimum values for these hyperparameters. To do this, the \textit{\textbf{Grid Search}} algorithm for hyperparameter optimization was employed. Grid search is simply an exhaustive search through a manually specified subset of the hyperparameter space (REF\_3).
+
+\subsection{Model Evaluation}
+350 images were hand selected and labeled to form a data set. The images were selected in a balanced manner with roughly the same amount of instances of all classes. All of this data was used for training and building the neural network. The same data was also used in evaluating the performance of the neural network. Things were done this way because while there was no shortage of sub-images, they had to be labeled manually. Labeling more sub-images for testing than the 350 images already labeled would have been a time-consuming process. On the other hand, we thought it would have been unwise to split the data into separate training and testing sets as the dataset was not very large to begin with. To overcome this problem, \textit{cross validation} was used for evaluation.\\ \\
+%
+Cross validation aims to define a dataset to ``test'' a model in the training phase, in order to limit problems like overfitting, give an insight on how the model will generalize to an independent dataset (i.e., an unknown dataset, for instance from a real problem), etc.
+
 
 \bigskip
 
-\def\baselinestretch{1.66}
+%%% ----------------------------------------------------------------------
+\goodbreak
 
+\section{Performance and Benchmarking}
+table of times and accuracies for each test image. why it performed better on some - ROI extraction - and how you propose to deal with this.
+
+
+\bigskip
+
+%%% ----------------------------------------------------------------------
+\goodbreak
+
+\section{Comparisons with Other Approaches}
+glcm regression approach. svm instead of mlp
+
+
+\bigskip
+
+%%% ----------------------------------------------------------------------
 
 
 
