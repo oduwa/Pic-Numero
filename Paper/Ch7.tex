@@ -3,7 +3,14 @@
 % ------------------------------------------------------------------------
 \def\baselinestretch{1}
 
-\chapter{Conclusion}
+\chapter{Conclusion and Future Work}
+\section{Conclusion}
+In this paper, a framework for counting the number of wheat grains in images is proposed. The proposed framework takes a counting-by-detection approach which calculates estimates of grain counts by attempting to detect instances of wheat grains in a given image. The image is broken down into thousands of tiny sub-images. A neural network is then employed against the sub-images to predict whether or not they contain a grain or not. The number of sub-images classified to contain a grain is counted and returned as an estimate for the number of grains in the image. Experiments were performed with the proposed framework and it was found to have $81.12\%$ prediction accuracy. The framework was also compared with a regression-based solution and was found to perform better. This might however be due to the fact that the dataset provided contained only 13 images and the regression-based solution did not have the advantage of being able to use sub-images obtained from dividing the original images. A general limitation of the proposed framework is the automation of the process of extracting regions of interest to be examined for grains. To help mitigate the effects of this, a standalone interactive program for manually extracting regions of interest was developed which can be used with the approach.  
+
+\section{Future Work}
+The classifier used for grain detection only has a binary target. This means that it classifies sub-images as either containing a grain or not. In the future, the classifier can be set to have a categorical target. This would allow it to classify sub-images as containing a grain and not containing as well as containing part of a grain. Other nominal options such as ``is sky'', ``is stalk'' and ``is ground'' could also be added, making the classifier more robust. This would make the system less dependent on the ROI extraction as it would not need the sky or ground regions to be removed because it can already tell them apart.\\ 
+%
+Furthermore, in the future, the MLP neural network being used for grain detection could be replaced with a CNN. CNNs are more suited to image and video recognition tasks than other neural networks. They are good at learning the important features from basically any data structure, without having to manually derive features. This would eliminate the need to compute GLCM features from sub-images and save processing time.
 
 \def\baselinestretch{1.66}
 

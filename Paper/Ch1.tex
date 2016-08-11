@@ -10,13 +10,25 @@
 
 %%% ----------------------------------------------------------------------
 
-% intro text here
+This project aims to research and create a system to automatically count the number of grains in periodically captured images of wheat plants. 
+%
+Agriculture is arguably one of the most important disciplines in the world. It is important that food is grown on a large scale. Large scale farmers often have multiple sites with multiple groups of plants growing. This makes it difficult for them to simultaneously monitor and coordinate all of these plants. Farmers need good tools to improve their agricultural processes, in turn improving yield.
+%
+Computer science and technology has been used to grow many other disciplines but only applied to agriculture to a smaller extent. This project aims to apply computer vision techniques to automatically monitor growth rates of wheat plants. Farmers could potentially be warned when irregularities occur. In addition to this, the results of the project could also be applied in a research setting to help biological researchers better monitor their experiments.\\ \\
+%
+% PROJECT SUMMARY
+The project involves the design and implementation of a system to automate the monitoring of wheat growth with periodically captured images. The system will function as follows: Images are periodically captured automatically through an appropriate Raspberry Pi-powered setup (or an alternative setup). The images are then uploaded and stored in a database. The system can then analyze the images in the database, estimating the number of spikelets in each image and draw conclusions from its analyses.
 
 \smallskip
 
 %%% ----------------------------------------------------------------------
 \goodbreak
 \section{Motivation}
+The problem is that it is not possible to automatically count the number of grains in an image of a (wheat) plant. At the moment, it is only either a fully or partially supervised process, requiring human intervention to a significant degree. There is no way to simply create a picture of the plants' progress without any human intervention.\\ \\
+%
+While it may not seem like a big deal, the problem could yield great reward if solved. Also, not only does the field of agriculture have something to gain from the success of the project but also Biology, Botany, Food Sciences and basically anything to do with plant research. The resulting system \textit{could} be applied and extended to automatically monitor the growth/yield of (wheat) plants and raise alerts if anomalies occur. The system would function with minimal supervision. If solved, the resulting system could save farms and research institutions a lot of time and resources which can then be channeled to other pressing areas.\\ \\
+
+% - Are there are possible improvements to current solutions?
 
 \bigskip
 
@@ -24,7 +36,12 @@
 \goodbreak
 
 \section{Aims and Objectives}
-
+The aim of this project is to develop/improve machine learning based algorithms to analyze wheat images and give a count the number of grains in the image. Its objectives are as follows:
+\begin{itemize}
+\item Apply image processing techniques to highlight and segment spikelet regions.
+\item Count the number of grains in each of the segmented regions.
+\item Make a record of the wheat plant's progress so far.
+\end{itemize}
 
 
 
