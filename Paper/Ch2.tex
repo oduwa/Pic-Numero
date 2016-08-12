@@ -73,6 +73,58 @@ These approaches sidestep the hard detection problem altogether and instead, att
 
 %%% ----------------------------------------------------------------------
 \goodbreak
+%%% ----------------------------------------------------------------------
+\section{Texture Analysis for Feature Extraction}
+Image texture analysis is a process which applies certain techniques to extract texture parameters from an image in order to quantify or qualify its perceived texture. Image texture gives us information about the spatial arrangement of color or intensities in an image or selected region of an image (\cite{REF21}). Generally speaking, textures are complex visual patterns that have characteristics such as brightness, colour and contrast. Because of this, texture is easily perceived by humans and is believed to be a rich source of visual information. Thus, texture is can be used as a metric for similarity between images.\\ \\
+%
+The proposed approach makes use of \textbf{\textit{Gray Level Co-occurrence Matrix (GLCM)}} texture analysis. A co-occurrence matrix can be defined as the distribution of co-occurring values at a given offset. It reflects the luminance distribution (as well as position distribution) between the same pixels or pixels with similar luminance values. The Gray Level Co-occurrence Matrix (GLCM) is formed from a gray-scale image and calculates how often a pixel with gray-scale intensity $i$ occurs (horizontally, vertically or diagonally) adjacent to pixels with gray-scale intensity $j$. Simply put, a GLCM characterizes an image by calculating how often pairs of pixels with specific values (and in a specified spatial relationship) occur in an image, where the spatial relationship could be horizontally adjacent, vertically adjacent or diagonally adjacent. The spatial relationship between pixels can be denoted using direction $\theta$ and distance $d$. For example, using this notation, the spatial relationship between two pixels $i$ and $j$ that are 3 pixels apart diagonally could be denoted as $(d,\theta) = (3,45^\circ)$.\\ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% _FIG_ d,theta IMAGE HERE %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.55]{Images/glcm_direction}
+\caption{Illustration of GLCM spatial analysis (\cite{REF24})}
+\label{fig:columnfigure}
+\end{figure}
+
+Below are the textural descriptors that can be derived from a GLCM $p$ with size $M$ by $N$:
+\begin{itemize}
+\item \textit{Energy}\\
+\begin{align*}
+ASM = \sum_{i=1}^{M}\sum_{j=1}^{N} p(i,j|d,\theta)^2
+\end{align*}
+is computed as the sum of squared elements in the GLCM. It is also known as \textit{uniformity}, \textit{uniformity of energy}, and \textit{angular second moment} and it represents texture coarseness.\\
+
+\item \textit{Contrast}\\
+\begin{align*}
+CON = \sum_{i=1}^{M}\sum_{j=1}^{N} |i-j|^2p(i,j|d,\theta)^2
+\end{align*}
+returns a measure of the intensity contrast between a pixel and its neighbor over the whole image. It is also known as \textit{variance} and \textit{inertia}.
+
+\item \textit{Homogeneity}\\
+\begin{align*}
+HOM = \sum_{i=1}^{M}\sum_{j=1}^{N} \frac{p(i,j|d,\theta)}{1 + |i - j|}
+\end{align*}
+represents the uniformity of the image and measures the change of local image texture.
+
+\item \textit{Correlation}\\
+\begin{align*}
+CORR = \sum_{i=1}^{M}\sum_{j=1}^{N} \frac{(i -\mu_i)(j - \mu_j)p(i,j|d,\theta)}{\sigma_i\sigma_j}
+\end{align*}
+Returns a measure of how correlated a pixel is to its neighbour over the whole image.\\
+
+\end{itemize}
+
+\bigskip
+
+%%% ----------------------------------------------------------------------
+\goodbreak
 
 \section{Learning and Modeling}
 In order to solve the counting problem, some way of actually determining the number of objects present in a preprocessed representation of an image has to be established. This is usually done by building a model to be used to perform this determination using machine learning techniques. As explained above, supervised learning models yield better results and perform better in practice. A supervised learning model is built from previously encountered and labeled instances and is then applied to subsequently encountered instances.\\ \\
