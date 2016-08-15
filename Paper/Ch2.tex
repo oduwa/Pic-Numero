@@ -62,10 +62,10 @@ A lot of research has been carried out on counting objects in images. However, t
 %
 A few approaches to solving the counting problem employ unsupervised learning by clustering or grouping similar aspects of the image. (\cite{REF14}) propose a method for grouping based on self-similarities and (\cite{REF15}) propose a method for grouping based on motion similarities. However, the counting accuracy of such fully unsupervised methods is limited, and therefore others considered approaches based on supervised learning. These approaches fall into the following categories:
 
-\subsubsection{Counting by Detection}
+\subsection{Counting by Detection}
 These approaches solve the problem by first detecting the objects in question and then counting them. Object detection is carried out by the use of a visual object detector that localizes individual instances of the object in the image. Given the localizations of the objects' instances, counting becomes trivial. However, visual object detection is far from being solved and is even more tricky when overlapping instances are involved. Several methods assume that objects are uniform and disconnected from each other by the distinct background color. Following this assumption, it is possible to localize individual instances via the Monte-Carlo process (\cite{REF16}) or morphological analysis (\cite{REF17}). These methods yield reliable results when the assumption is met but are not so applicable in challenging real life situations. 
 
-\subsubsection{Counting by Regression}
+\subsection{Counting by Regression}
 These approaches sidestep the hard detection problem altogether and instead, attempt to form a direct mapping from some features or groups of features of the image to the number of objects contained within it. This is a standard regression problem that can be addressed by many different machine learning tools such as neural networks. This approach however has to discard any available information about the location of the objects, using only its 1-dimensional statistics (total number) for learning. As a result, a large number of training images with the supplied counts needs to be provided during training (\cite{REF18}).
 
 

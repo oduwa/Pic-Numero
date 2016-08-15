@@ -11,7 +11,7 @@
 
 \def\baselinestretch{1}
 
-\chapter{Evaluation and Discussion}
+\chapter{Experimentation and Discussion}
 
 %%% ----------------------------------------------------------------------
 
@@ -22,8 +22,15 @@
 %%% ----------------------------------------------------------------------
 \goodbreak
 
-\section{Model Description and Evaluation}
-\subsection{The Model}
+\section{Evaluating the Counting-by-Regression Approach}
+\subsection{Evaluation Methodology}
+%describe ways used to evaluate - https://en.wikipedia.org/wiki/Regression_validation
+
+\subsection{System Performance}
+%experiments and results and discuss
+
+\section{Evaluating the Counting-by-Detection Approach}
+\subsection{The Model Setup}
 The model used for the prediction (and in essence, detection) of grains was the artificial neural network using the Multi-Layer Perceptron (MLP) learning algorithm. The MLP made use of the \textit{\textbf{sigmoid function $\sigma$}} (also known as the \textbf{\textit{logistic function}}) as its activation function (REF\_1). The sigmoid function is as follows:
 \begin{equation}
 \sigma(x) = \frac{1}{1 + e^{-x}}
@@ -48,7 +55,7 @@ Cross validation aims to define a dataset to ``test'' a model in the training ph
 %%% ----------------------------------------------------------------------
 \goodbreak
 
-\section{System Performance}
+\subsection{System Performance}
 \begin{table}[hp!]
   \centering
   \begin{tabular}{ | c | c | c | c |}
@@ -291,9 +298,7 @@ Having determined that the MLP could detect grains in images with an accuracy of
 %%% ----------------------------------------------------------------------
 \goodbreak
 
-\section{Comparisons with Other Approaches}
-After implementing the counting-by-detection approach proposed in this paper, a similar counting-by-regression approach was also implemented for comparisons in order to see if our assumptions and hypotheses were correct. The high-level idea of the implemented counting-by-detection approach is extremely simple: given $N$ training images with their grain counts provided, the goal was to recover a grain density function $F$ as a real function of pixels in the images. The grain density function learned the relationship between the density of spikelets in areas of the image and provides a mapping between said density and the number of grains in the image. New images could then be provided as input to $F$ and an estimate of the number of grains in the provided image returned as output. The grain density function (which serves as the predictive model) is built by constructing a regression model with the same textural features computed from the GLCMs of the images in the counting-by-detection approach.\\ \\
-%
+\section{Comparisons}
 It was difficult to properly evaluate the counting-by-detection approach. While it showed poorer results by being off the actual count by more than the counting-by-detection method, it should be noted that it was trained on only 7 wheat images and tested on the remaining 6. Using only 7 images would definitely not have built a very good model. The counting-by-detection approach on the other hand had access to 5000 potential examples from each wheat image. Therefore, while the counting-by-detection approach out-performed the counting-by-regression approach, it is still too soon to write off the regression approach as being inferior. However, because we know the accuracy of regression approaches is limited as there is no universal function that can map images to grain counts for any and all images. If a system can correctly detect grains in images (of any kind) to a reasonable extent, such a system would outclass any built on regression approaches\\ \\
 %
 The system proposed relies on a machine learning classifier for grain detection. Our solution makes use of a neural network. We tried other classifiers to see how they all measured up. For image classification, neural networks and support vector machines perform best so the two were pit against each other in order to determine which was best for this problem. In particular, an MLP neural network and an SVM with the \textit{radial basis function} as the kernel function were used. While the SVM was hundreds of times faster than the neural network, it only yielded a prediction accuracy of $65.9\%$ while the neural network yielded an accuracy of $81.12\%$. Despite the fact that the SVM was able to count grains in a fraction of the time that the neural network did, the difference in prediction accuracy was too great to be disregarded in favour of speed. There are still more kinds of neural networks besides the MLP variation used in our solution and in the future, we intend to look into how they can be applied to the problem. Convolutional neural networks are one such example. 
