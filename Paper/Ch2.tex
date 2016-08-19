@@ -1,6 +1,18 @@
 % ------------------------------------------------------------------------
 % -*-TeX-*- -*-Hard-*- Smart Wrapping
 % ------------------------------------------------------------------------
+%REF1 - @unpublished{Goodfellow-et-al-2016-Book,
+%     title={Deep Learning},
+%     author={Ian Goodfellow Yoshua Bengio and Aaron Courville},
+%     note={Book in preparation for MIT Press},
+%     url={http://www.deeplearningbook.org},
+%     year={2016}
+% }
+
+% REF2 - Song, H.A.; Lee, S. Y. (2013). "Hierarchical Representation Using NMF". Neural Information Processing. Lectures Notes in Computer Sciences. 8226. Springer Berlin Heidelberg. pp. 466–473. doi:10.1007/978-3-642-42054-2_58. ISBN 978-3-642-42053-5.
+
+% REF3 - Convolutional Neural Networks (LeNet) – DeepLearning 0.1 documentation". DeepLearning 0.1. LISA Lab. Retrieved 31 August 2013.
+
 \def\baselinestretch{1}
 
 \chapter{Literature Review and Related Work}
@@ -19,7 +31,7 @@
 \section{The Counting Problem}
 A prevalent theme in the field of Computer Science is that of performing tasks traditional to humans, through the use of a computer. Counting is a trivial cognitive task for humans. In fact, it comes so naturally that studies have shown that children below the age of 3 demonstrate an understanding of numerosity without any knowledge of number or counting systems (\cite{REF1}). For a computer, the task of estimating the number of objects (of some kind) in an image is slightly more complicated and comes up in many real world applications such as counting cells in microscopic images and monitoring crowds in surveillance systems.\\ \\
 %
-The most established ways of counting objects in images involve the use of image processing or computer vision techniques in conjunction with machine learning methods. While there are are many different approaches which employ different techniques to achieve these goals, they all share (to some extent) the same general outline. The image is first transformed to greyscale. The greyscale image is thresholded to yield a binary image. The binary image is segmented and the features to be used for counting are extracted and passed into the model. Figure 1 shows a generalized flowchart for the activities involved in counting objects in images with the stages described as follows:\\
+The most established ways of counting objects in images involve the use of image processing or computer vision techniques in conjunction with machine learning methods. While there are are many different approaches which employ different techniques to achieve these goals, they all share (to some extent) the same general outline. The image is first transformed to greyscale. The greyscale image is thresholded to yield a binary image. The binary image is segmented and the features to be used for counting are extracted and passed into the model. Figure 2.1 shows a generalized flowchart for the activities involved in counting objects in images with the stages described as follows:\\
 % _FIG_ Flowchart process image here
 \begin{figure}[ht!]
 \centering
@@ -150,6 +162,22 @@ Another machine learning tool that can be used for modeling is the \textit{artif
 \end{equation}
 Many such nodes are chained together to form a network, passing the outputs of their activation functions along. The network is trained with labeled data by feeding inputs into the network and fine-tuning the weights until the network always yields the expected class label as its output. This is not very different from regression in that parameters are being tuned to create a function that yields certain values. Hence, artificial neural networks can easily be adapted to solve regression problems.
 % Maybe bias-variance as shown in lecture notes
+
+\bigskip
+
+%%% ----------------------------------------------------------------------
+
+%%% ----------------------------------------------------------------------
+\goodbreak
+
+\section{Deep Learning}
+Deep learning is a branch of machine learning based on a set of algorithms that attempt to model high-level abstractions in data by using a deep graph with multiple processing layers, composed of multiple linear and non-linear transformations (REF\_1). It is also known as deep structured learning, hierarchical learning or deep machine learning. The performance of traditional machine learning algorithms depends heavily on the representation of the data used. Features of the data in question are usually extracted and combined in some way before being used in the machine learning algorithm. However, for most tasks, it is difficult to know which features should be extracted. Deep learning offers a solution to this problem by replacing handcrafted features with efficient algorithms for unsupervised or semi-supervised feature learning and hierarchical feature extraction (REF\_2). It allows the computer to learn the best features for itself. These learned representations often result in much better performance than can be obtained with hand-designed representations as those are often just a heuristic. They also allow Artificial Intelligence (AI) systems to rapidly adapt to new tasks, with little intervention from the programmer.\\ \\
+%
+Some examples of deep learning architectures are \textit{Convolutional Neural Networks (CNNs)}, \textit{Recurrent Neural Networks (RNNs)} and \textit{deep belief networks}. A CNN is a type of feed-forward artificial neural network in which the connectivity pattern between its neurons is inspired by the organization of the animal visual cortex (REF\_3). A CNN is comprised of one or more convolutional layers and then followed by one or more fully connected layers as in a standard multilayer neural network. CNNs are usually used in computer vision and image processing as their architecture is designed to take advantage of the 2D structure of their inputs. This is achieved with local connections and tied weights followed by a pooling layer which results in translation-invariant features.\\ \\ 
+%
+The convolutional layer is the heart of a CNN. This layer is made up of a set of kernels (or convolution matrices). During the forward pass, each kernel is convolved across the width and height of the input - usually an image - computing the dot product between the entries of the kernel and the input and producing an activation map of that kernel. As a result, the network learns kernels that activate when they encounter some specific type of feature at some spatial position in the input. The pooling layer is another important part of the convolutional neural network architecture. The pooling layer applies a \textit{pooling function} to the data in order to down-sample it and reduce the size of the problem. \textit{Max pooling} is the most commonly used pooling function and  it partitions the input image into a set of non-overlapping rectangles, then, for each such sub-region, outputs the maximum. The purpose of the pooling layer is to progressively reduce the spatial size of the input representation, thereby reducing the amount of parameters and computation in the network. It also controls overfitting. Pooling layers are usually placed periodically between successive convolutional layers. The pooling layer and its operations allow CNNs to be robust to translations of the input image.\\ \\
+%
+Deep learning architectures have been applied to fields like computer vision, speech recognition, natural language processing, audio recognition and bioinformatics where they have been found to produce state-of-the-art results in various tasks.
 
 \bigskip
 
