@@ -126,7 +126,7 @@ To further examine the general performance of the classifier, a \textit{\textbf{
 \label{fig1}
 \end{figure}
 %
-Having determined that the classifier could detect grains in images with an accuracy of $80.68\%$, it would be interesting to find out what this meant for the counting system itself. Tables 6.2 and 6.3 show the actual and predicted counts for the images provided as well as the time taken for the system to compute the counts. From these tables, it can be seen that the system seemed to perform better on certain kinds of images than others. This was due to the fact that in the ROI extraction stage, the clusters to be extracted from the original image were hardcoded. This caused problems because the hardcoded clusters were not always the optimum (or sometimes even particularly good) clusters to select as regions of interest. A way around this problem would be to manually select the clusters denoting regions of interest to be extracted before passing a query image to the system. A simple interactive program was written to this end. Figure 6.4 shows a screenshot of the ROI extraction interface. The program allows a user to upload an image and set the number of clusters that they wish to detect using the k-means clustering algorithm. The program then displays the image with the clusters overlayed over it and the user is able to select the clusters that they would like to extract. While this method might be slightly labour-intensive when a medium to large number of images need to have their grains counted, it yields much better performance. The trade-off here between labour-intensiveness and performance is something that would need to be considered in practice.
+Having determined that the classifier could detect grains in images with an accuracy of $80.68\%$, it would be interesting to find out what this meant for the counting system itself. Tables 6.2 and 6.3 show the actual and predicted counts for the images provided. From these tables, it can be seen that the system seemed to perform better on certain kinds of images than others. This was due to the fact that in the ROI extraction stage, the clusters to be extracted from the original image were hardcoded. This caused problems because the hardcoded clusters were not always the optimum (or sometimes even particularly good) clusters to select as regions of interest. A way around this problem would be to manually select the clusters denoting regions of interest to be extracted before passing a query image to the system. A simple interactive program was written to this end. Figure 6.4 shows a screenshot of the ROI extraction interface. The program allows a user to upload an image and set the number of clusters that they wish to detect using the k-means clustering algorithm. The program then displays the image with the clusters overlayed over it and the user is able to select the clusters that they would like to extract. While this method might be slightly labour-intensive when a medium to large number of images need to have their grains counted, it yields much better performance. The trade-off here between labour-intensiveness and performance is something that would need to be considered in practice.
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.7]{Images/gui}
@@ -148,9 +148,9 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
 
 \begin{table}[hp!]
   \centering
-  \begin{tabular}{ | c | c | c | c |}
+  \begin{tabular}{ | c | c | c | }
     \hline
-    Image & Actual count & Predicted count & Time taken \\ \hline
+    Image & Actual count & Predicted count \\ \hline
     \begin{minipage}{.3\textwidth}
       \begin{center}
 		\includegraphics[width=\linewidth]{Images/001}
@@ -158,15 +158,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      1432
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      1435
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      215
+      1252
     %\end{minipage}
     \\ \hline
     %%% NEW LINE %%%
@@ -177,15 +173,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      1760
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      yyy
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      zzz
+      1771
     %\end{minipage}
     \\ \hline
     %%% NEW LINE %%%
@@ -196,15 +188,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      1914
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      yyy
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      zzz
+      1980
     %\end{minipage}
     \\ \hline
     %%% NEW LINE %%%
@@ -215,15 +203,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      880
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      yyy
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      zzz
+      916
     %\end{minipage}
     \\ \hline
     %%% NEW LINE %%%
@@ -234,15 +218,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      1562
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      yyy
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      zzz
+      1552
     %\end{minipage}
     \\ \hline
     %%% NEW LINE %%%
@@ -253,15 +233,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      1276
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      yyy
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      zzz
+      1376
     %\end{minipage}
     \\ \hline
   \end{tabular}
@@ -274,9 +250,9 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
 
 \begin{table}[ht!]
   \centering
-  \begin{tabular}{ | c | c | c | c |}
+  \begin{tabular}{ | c | c | c | }
     \hline
-    Image & Actual count & Predicted count & Time taken \\ \hline
+    Image & Actual count & Predicted count \\ \hline
     \begin{minipage}{.3\textwidth}
       \begin{center}
 		\includegraphics[width=\linewidth]{Images/008}
@@ -284,15 +260,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      1694
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      yyy
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      zzz
+      1536
     %\end{minipage}
     \\ \hline
     %%% NEW LINE %%%
@@ -303,15 +275,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      1497
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      yyy
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      zzz
+      1398
     %\end{minipage}
     \\ \hline
     %%% NEW LINE %%%
@@ -322,15 +290,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      1474
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      yyy
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      zzz
+      1381
     %\end{minipage}
     \\ \hline
     %%% NEW LINE %%%
@@ -341,15 +305,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      1342
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      yyy
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      zzz
+      1417
     %\end{minipage}
     \\ \hline
     %%% NEW LINE %%%
@@ -360,15 +320,11 @@ Also, for the proposed counting-by-detection approach, the size of the kernel us
     \end{minipage}
     &
     %\begin{minipage}[t]{5cm}
-      xxx
+      1012
     %\end{minipage}
     & 
     %\begin{minipage}{5cm}
-      yyy
-    %\end{minipage}
-    & 
-    %\begin{minipage}{5cm}
-      zzz
+      1274
     %\end{minipage}
     \\ \hline
     %%% NEW LINE %%%
