@@ -15,6 +15,7 @@ import os, sys, shutil
 import tqdm
 import tensorflow as tf
 from tensorflow.contrib import learn as skflow
+#https://www.tensorflow.org/versions/r0.10/tutorials/deep_cnn/index.html
 
 
 # The name of the file where we will store serialized classifier
