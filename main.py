@@ -28,13 +28,28 @@ def blockfunc(block):
         #io.imsave("Block2/{}.png".format(Helper.generate_random_id()), block)
         img_data.append(block)
 
-def run_with_svm():
+def run_with_svm(image_filename="Wheat_Images/004.jpg", ser_filename=None):
+'''
+	Estimates the number of grains in a given image using a 
+	Support Vector Machine.
+	
+	Args:
+		image_filename: The path to the image from which a grain count
+			is to be obtained.
+			
+		ser_filename: path to serialized list of isub-images already extracted 
+		from the image from which a grain count is to be obtained.
+	
+	Returns:
+		count: An estimate of the number of grains in the provided image.
+	'''
+	
     global img_data
 
     # Chop image up into sub-images and serilaise or just load serialised data if
     # it already exists.
-    image_filename = "Wheat_Images/004.jpg"
-    ser_filename = "Wheat_Images/xxx_004.data"
+    if(ser_filename == None and image_filename == "Wheat_Images/004.jpg"):
+		ser_filename = "Wheat_Images/xxx_004.data"
     if(Helper.unserialize(ser_filename) == None):
         img = img_as_ubyte(io.imread(image_filename))
         roi_img = spectral_roi.extract_roi(img, [1])
@@ -44,21 +59,34 @@ def run_with_svm():
         img_data = Helper.unserialize(ser_filename)
 
     # classify
-    #SVM.build_model('glcm', iters=30, glcm_isMultidirectional=True)
     r = SVM.classify(img_data, featureRepresentation='glcm', shouldSaveResult=True)
 
     # Count number of '1s' in the result and return
     count = r.tolist().count(1)
     print("COUNT: {}".format(count))
-    return
+    return count
 
-def run_with_mlp():
+def run_with_mlp(image_filename="Wheat_Images/004.jpg", ser_filename=None):
+	'''
+	Estimates the number of grains in a given image using a 
+	Multilayer Perceptron neural network.
+	
+	Args:
+		image_filename: The path to the image from which a grain count
+			is to be obtained.
+			
+		ser_filename: path to serialized list of isub-images already extracted 
+		from the image from which a grain count is to be obtained.
+	
+	Returns:
+		count: An estimate of the number of grains in the provided image.
+	'''
     global img_data
 
     # Chop image up into sub-images and serilaise or just load serialised data if
     # it already exists.
-    image_filename = "Wheat_Images/004.jpg"
-    ser_filename = "Wheat_Images/xxx_004.data"
+	if(ser_filename == None and image_filename == "Wheat_Images/004.jpg"):
+		ser_filename = "Wheat_Images/xxx_004.data"
     if(Helper.unserialize(ser_filename) == None):
         img = img_as_ubyte(io.imread(image_filename))
         roi_img = spectral_roi.extract_roi(img, [1])
@@ -74,15 +102,30 @@ def run_with_mlp():
     # Count number of '1s' in the result and return
     count = r.tolist().count(1)
     print("COUNT: {}".format(count))
-    return
+    return count
 
-def run_with_cnn():
+def run_with_cnn(image_filename="Wheat_Images/004.jpg", ser_filename=None):
+'''
+	Estimates the number of grains in a given image using a 
+	Convolutional neural network.
+	
+	Args:
+		image_filename: The path to the image from which a grain count
+			is to be obtained.
+			
+		ser_filename: path to serialized list of isub-images already extracted 
+		from the image from which a grain count is to be obtained.
+	
+	Returns:
+		count: An estimate of the number of grains in the provided image.
+	'''
+	
     global img_data
 
     # Chop image up into sub-images and serilaise or just load serialised data if
     # it already exists.
-    image_filename = "Wheat_Images/001.jpg"
-    ser_filename = "Wheat_Images/xxx_001.data"
+    if(ser_filename == None and image_filename == "Wheat_Images/004.jpg"):
+		ser_filename = "Wheat_Images/xxx_004.data"
     if(Helper.unserialize(ser_filename) == None):
         img = img_as_ubyte(io.imread(image_filename))
         roi_img = spectral_roi.extract_roi(img, [1])
@@ -97,7 +140,7 @@ def run_with_cnn():
     # Count number of '1s' in the result and return
     count = r.tolist().count(1)
     print("COUNT: {}".format(count))
-    return
+    return count
 
 
 #run_with_svm()
