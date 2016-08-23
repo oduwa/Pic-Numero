@@ -28,45 +28,45 @@ def blockfunc(block):
     if(numpy.any(block)):
         #io.imsave("Block2/{}.png".format(Helper.generate_random_id()), block)
         img_data.append(block)
-		
-		
+
+
 ################### COUNTING BY REGRESSION #####################################
-		
+
 def run_with_glcm(image_filename="Wheat_Images/004.jpg"):
     '''
-	Estimates the number of grains in a given image using a 
+	Estimates the number of grains in a given image using a
 	regression approach and glcm features.
-	
+
 	Args:
 		image_filename: The path to the image from which a grain count
 			is to be obtained.
-	
+
 	Returns:
 		count: An estimate of the number of grains in the provided image.
 	'''
-	model = glcm.train()
-	count = glcm.count(image_filename, model)
-	print("COUNT: {}".format(count))
+    model = glcm.train()
+    count = glcm.count(image_filename, model)
+    print("COUNT: {}".format(count))
     return count
-	
+
 ################### COUNTING BY DETECTION #####################################
 
 def run_with_svm(image_filename="Wheat_Images/004.jpg", ser_filename=None):
     '''
-	Estimates the number of grains in a given image using a 
+	Estimates the number of grains in a given image using a
 	Support Vector Machine.
-	
+
 	Args:
 		image_filename: The path to the image from which a grain count
 			is to be obtained.
-			
-		ser_filename: path to serialized list of isub-images already extracted 
+
+		ser_filename: path to serialized list of isub-images already extracted
 		from the image from which a grain count is to be obtained.
-	
+
 	Returns:
 		count: An estimate of the number of grains in the provided image.
 	'''
-	
+
     global img_data
 
     # Chop image up into sub-images and serilaise or just load serialised data if
@@ -90,25 +90,25 @@ def run_with_svm(image_filename="Wheat_Images/004.jpg", ser_filename=None):
     return count
 
 def run_with_mlp(image_filename="Wheat_Images/004.jpg", ser_filename=None):
-	'''
-	Estimates the number of grains in a given image using a 
+    '''
+	Estimates the number of grains in a given image using a
 	Multilayer Perceptron neural network.
-	
+
 	Args:
 		image_filename: The path to the image from which a grain count
 			is to be obtained.
-			
-		ser_filename: path to serialized list of isub-images already extracted 
+
+		ser_filename: path to serialized list of isub-images already extracted
 		from the image from which a grain count is to be obtained.
-	
+
 	Returns:
 		count: An estimate of the number of grains in the provided image.
-	'''
+    '''
     global img_data
 
     # Chop image up into sub-images and serilaise or just load serialised data if
     # it already exists.
-	if(ser_filename == None and image_filename == "Wheat_Images/004.jpg"):
+    if(ser_filename == None and image_filename == "Wheat_Images/004.jpg"):
 		ser_filename = "Wheat_Images/xxx_004.data"
     if(Helper.unserialize(ser_filename) == None):
         img = img_as_ubyte(io.imread(image_filename))
@@ -129,20 +129,20 @@ def run_with_mlp(image_filename="Wheat_Images/004.jpg", ser_filename=None):
 
 def run_with_cnn(image_filename="Wheat_Images/004.jpg", ser_filename=None):
     '''
-	Estimates the number of grains in a given image using a 
+	Estimates the number of grains in a given image using a
 	Convolutional neural network.
-	
+
 	Args:
 		image_filename: The path to the image from which a grain count
 			is to be obtained.
-			
-		ser_filename: path to serialized list of isub-images already extracted 
+
+		ser_filename: path to serialized list of isub-images already extracted
 		from the image from which a grain count is to be obtained.
-	
+
 	Returns:
 		count: An estimate of the number of grains in the provided image.
 	'''
-	
+
     global img_data
 
     # Chop image up into sub-images and serilaise or just load serialised data if
@@ -167,14 +167,4 @@ def run_with_cnn(image_filename="Wheat_Images/004.jpg", ser_filename=None):
 
 
 
-
-
-#run_with_svm()
-#run_with_mlp()
-#run_with_cnn()
-# train_data, train_targets, test_data, expected = Helper.unserialize("Datasets/raw.data")
-# x = train_data[0].reshape((20,20))
-# print(x)
-# (train_data, train_targets, test_data, expected) = Helper.extract_features_from_new_data(train_size=0.95)
-# Helper.serialize("Datasets/raw_new_80.data", (train_data, train_targets, test_data, expected))
-CNN.get_model(None)
+run_with_svm()
