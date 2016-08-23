@@ -9,6 +9,7 @@ from skimage.color import rgb2gray
 from skimage.feature import greycomatrix, greycoprops
 from skimage import img_as_ubyte, io
 import os, sys
+import glcm
 import MLP
 import CNN
 import SVM
@@ -27,9 +28,31 @@ def blockfunc(block):
     if(numpy.any(block)):
         #io.imsave("Block2/{}.png".format(Helper.generate_random_id()), block)
         img_data.append(block)
+		
+		
+################### COUNTING BY REGRESSION #####################################
+		
+def run_with_glcm(image_filename="Wheat_Images/004.jpg"):
+    '''
+	Estimates the number of grains in a given image using a 
+	regression approach and glcm features.
+	
+	Args:
+		image_filename: The path to the image from which a grain count
+			is to be obtained.
+	
+	Returns:
+		count: An estimate of the number of grains in the provided image.
+	'''
+	model = glcm.train()
+	count = glcm.count(image_filename, model)
+	print("COUNT: {}".format(count))
+    return count
+	
+################### COUNTING BY DETECTION #####################################
 
 def run_with_svm(image_filename="Wheat_Images/004.jpg", ser_filename=None):
-'''
+    '''
 	Estimates the number of grains in a given image using a 
 	Support Vector Machine.
 	
@@ -105,7 +128,7 @@ def run_with_mlp(image_filename="Wheat_Images/004.jpg", ser_filename=None):
     return count
 
 def run_with_cnn(image_filename="Wheat_Images/004.jpg", ser_filename=None):
-'''
+    '''
 	Estimates the number of grains in a given image using a 
 	Convolutional neural network.
 	
@@ -141,6 +164,9 @@ def run_with_cnn(image_filename="Wheat_Images/004.jpg", ser_filename=None):
     count = r.tolist().count(1)
     print("COUNT: {}".format(count))
     return count
+
+
+
 
 
 #run_with_svm()
