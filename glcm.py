@@ -3,6 +3,7 @@ from scipy import misc
 from skimage.color import rgb2gray
 from skimage.feature import greycomatrix, greycoprops
 import Display
+import Helper
 import matplotlib.pyplot as plt
 from skimage import data
 from skimage import img_as_ubyte
