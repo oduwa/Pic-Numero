@@ -11,24 +11,101 @@ from skimage import img_as_ubyte, io
 import os, sys
 import MLP
 import CNN
+import SVM
 import spectral_roi
 import Helper
 import Display
 
-# img_data = []
-# def func(block):
-#     # Check if not all zeros
-#     if(numpy.any(block)):
-#         #io.imsave("Block2/{}.png".format(Helper.generate_random_id()), block)
-#         img_data.append(block)
-#
-# img = img_as_ubyte(io.imread("Wheat_Images/001.jpg"))
-# roi_img = spectral_roi.extract_roi(img)
-# Helper.block_proc(roi_img, (20,20), func)
-img_data = Helper.unserialize("xxx.data")
-# Display.show_image(img_data[100])
-# Display.show_image(img_data[200])1
-# Display.show_image(img_data[300])0
-r = CNN.classify(img_data,model_file=None,featureRepresentation='glcm')
-print(r)
-print("COUNT: {}".format(r.tolist().count(1)))
+# Initialise list for storing sub-image (ie block data).
+img_data = []
+
+# Block processing function
+def blockfunc(block):
+    global img_data
+
+    # Check if not all zeros
+    if(numpy.any(block)):
+        #io.imsave("Block2/{}.png".format(Helper.generate_random_id()), block)
+        img_data.append(block)
+
+def run_with_svm():
+    global img_data
+
+    # Chop image up into sub-images and serilaise or just load serialised data if
+    # it already exists.
+    image_filename = "Wheat_Images/004.jpg"
+    ser_filename = "Wheat_Images/xxx_004.data"
+    if(Helper.unserialize(ser_filename) == None):
+        img = img_as_ubyte(io.imread(image_filename))
+        roi_img = spectral_roi.extract_roi(img, [1])
+        Helper.block_proc(roi_img, (20,20), blockfunc)
+        Helper.serialize(ser_filename, img_data)
+    else:
+        img_data = Helper.unserialize(ser_filename)
+
+    # classify
+    #SVM.build_model('glcm', iters=30, glcm_isMultidirectional=True)
+    r = SVM.classify(img_data, featureRepresentation='glcm', shouldSaveResult=True)
+
+    # Count number of '1s' in the result and return
+    count = r.tolist().count(1)
+    print("COUNT: {}".format(count))
+    return
+
+def run_with_mlp():
+    global img_data
+
+    # Chop image up into sub-images and serilaise or just load serialised data if
+    # it already exists.
+    image_filename = "Wheat_Images/004.jpg"
+    ser_filename = "Wheat_Images/xxx_004.data"
+    if(Helper.unserialize(ser_filename) == None):
+        img = img_as_ubyte(io.imread(image_filename))
+        roi_img = spectral_roi.extract_roi(img, [1])
+        Helper.block_proc(roi_img, (20,20), blockfunc)
+        Helper.serialize(ser_filename, img_data)
+    else:
+        img_data = Helper.unserialize(ser_filename)
+
+    # classify
+    #MLP.build_model('glcm', iters=30, glcm_isMultidirectional=True)
+    r = MLP.classify(img_data, featureRepresentation='glcm', shouldSaveResult=True)
+
+    # Count number of '1s' in the result and return
+    count = r.tolist().count(1)
+    print("COUNT: {}".format(count))
+    return
+
+def run_with_cnn():
+    global img_data
+
+    # Chop image up into sub-images and serilaise or just load serialised data if
+    # it already exists.
+    image_filename = "Wheat_Images/001.jpg"
+    ser_filename = "Wheat_Images/xxx_001.data"
+    if(Helper.unserialize(ser_filename) == None):
+        img = img_as_ubyte(io.imread(image_filename))
+        roi_img = spectral_roi.extract_roi(img, [1])
+        Helper.block_proc(roi_img, (20,20), blockfunc)
+        Helper.serialize(ser_filename, img_data)
+    else:
+        img_data = Helper.unserialize(ser_filename)
+
+    # classify
+    r = CNN.classify(img_data[0], model_file=None,featureRepresentation='glcm', shouldSaveResult=True)
+
+    # Count number of '1s' in the result and return
+    count = r.tolist().count(1)
+    print("COUNT: {}".format(count))
+    return
+
+
+#run_with_svm()
+#run_with_mlp()
+#run_with_cnn()
+# train_data, train_targets, test_data, expected = Helper.unserialize("Datasets/raw.data")
+# x = train_data[0].reshape((20,20))
+# print(x)
+# (train_data, train_targets, test_data, expected) = Helper.extract_features_from_new_data(train_size=0.95)
+# Helper.serialize("Datasets/raw_new_80.data", (train_data, train_targets, test_data, expected))
+CNN.get_model(None)
