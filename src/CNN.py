@@ -19,14 +19,14 @@ from tensorflow.contrib import learn as skflow
 
 
 # The name of the file where we will store serialized classifier
-CLASSIFIER_FILE = 'Models/CNN_d1_a4'
+CLASSIFIER_FILE = '../Models/CNN_d1_a4'
 
 def get_model(filename=CLASSIFIER_FILE):
     ''' Get CNN classifier object from file or create one if none exists on file.'''
     if(filename == None):
         # Load dataset
-        train_data, train_targets, test_data, expected = Helper.unserialize("Datasets/raw_new_80.data")
-        train_data2, train_targets2, test_data2, expected2 = Helper.unserialize("Datasets/raw.data")
+        train_data, train_targets, test_data, expected = Helper.unserialize("../Datasets/raw_new_80.data")
+        train_data2, train_targets2, test_data2, expected2 = Helper.unserialize("../Datasets/raw.data")
 
         train_data = np.concatenate((train_data, train_data2), axis=0)
         train_targets = np.concatenate((train_targets, train_targets2), axis=0)
@@ -291,7 +291,7 @@ def run(featureRepresentation='image', glcm_distance=1, glcm_isMultidirectional=
     That is, train it on training data and test it on test data.
     '''
     train_data, train_targets, test_data, expected = Helper.extract_features_from_new_data(featureRepresentation, glcm_distance, glcm_isMultidirectional, train_size=0.5)
-    Helper.serialize("Datasets/grain_glcm_d1_a4_2_new.data", (train_data, train_targets, test_data, expected))
+    Helper.serialize("../Datasets/grain_glcm_d1_a4_2_new.data", (train_data, train_targets, test_data, expected))
 
     # Build Classifier
     classifier = skflow.TensorFlowEstimator(model_fn=multilayer_conv_model, n_classes=2,
@@ -308,7 +308,7 @@ def run(featureRepresentation='image', glcm_distance=1, glcm_isMultidirectional=
 
 def main():
     #run('glcm', glcm_isMultidirectional=True)
-    #save_feature_dataset("Datasets/grain_glcm_d1_a4.data", 'glcm', glcm_isMultidirectional=True)
-    #run_with_dataset("Datasets/grain_glcm_d1_a4_2_new.data")
-    experiment_with_parameters("Datasets/grain_glcm_d1_a4_2.data", batch_sizes=[4,8,16,32,64,128], learning_rates=[0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5])
-    #experiment_with_parameters("Datasets/grain_glcm_d1_a4_2.data")
+    #save_feature_dataset("../Datasets/grain_glcm_d1_a4.data", 'glcm', glcm_isMultidirectional=True)
+    #run_with_dataset("../Datasets/grain_glcm_d1_a4_2_new.data")
+    experiment_with_parameters("../Datasets/grain_glcm_d1_a4_2.data", batch_sizes=[4,8,16,32,64,128], learning_rates=[0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5])
+    #experiment_with_parameters("../Datasets/grain_glcm_d1_a4_2.data")

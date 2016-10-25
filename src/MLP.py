@@ -16,14 +16,14 @@ import tqdm
 from scipy.interpolate import UnivariateSpline
 
 # The name of the file where we will store serialized classifier
-MLP_FILE = 'Models/MLP_d1_a4.data'
+MLP_FILE = '../Models/MLP_d1_a4.data'
 
 def get_model(filename=MLP_FILE):
     ''' Fetch MLP classifier object from file'''
     classifier = Helper.unserialize(filename)
 
     if(classifier == None):
-        classifier = build_model('glcm', dataset_file='Datasets/old_data.data', iters=2)
+        classifier = build_model('glcm', dataset_file='../Datasets/old_data.data', iters=2)
         Helper.serialize(filename, classifier)
 
     return classifier
@@ -126,13 +126,13 @@ def build_model(featureRepresentation='image', dataset_file=None, iters=10, glcm
     if(dataset_file == None):
         # Load train data
         train_filenames = []
-        for filename in os.listdir("train/positive"):
-            if(filename != ".DS_Store"): train_filenames.append("train/positive/" + filename)
-        train_targets = [1]*(len(os.listdir("train/positive"))-1)
+        for filename in os.listdir("../train/positive"):
+            if(filename != ".DS_Store"): train_filenames.append("../train/positive/" + filename)
+        train_targets = [1]*(len(os.listdir("../train/positive"))-1)
 
-        for filename in os.listdir("train/negative"):
-            if(filename != ".DS_Store"): train_filenames.append("train/negative/" + filename)
-        train_targets = train_targets + [0]*(len(os.listdir("train/negative"))-1)
+        for filename in os.listdir("../train/negative"):
+            if(filename != ".DS_Store"): train_filenames.append("../train/negative/" + filename)
+        train_targets = train_targets + [0]*(len(os.listdir("../train/negative"))-1)
 
         n_train_samples = len(train_filenames)
         if(featureRepresentation == 'glcm'):
@@ -160,7 +160,7 @@ def build_model(featureRepresentation='image', dataset_file=None, iters=10, glcm
         expected = []
         for filename in os.listdir("test"):
             if(filename != ".DS_Store"):
-                test_filenames.append("test/" + filename)
+                test_filenames.append("../test/" + filename)
                 expected.append(int(filename.split('_')[1].split('.')[0]))
 
         n_test_samples = len(test_filenames)
@@ -215,7 +215,7 @@ def roc():
     '''
     n_classes = 2
     clf = get_model()
-    (train_data, train_targets, test_data, test_targets) = Helper.unserialize("Datasets/new_data_glcm_d1_a4_75_25.data")
+    (train_data, train_targets, test_data, test_targets) = Helper.unserialize("../Datasets/new_data_glcm_d1_a4_75_25.data")
     y_score = clf.decision_function(test_data)
 
     fpr, tpr, thresholds = metrics.roc_curve(test_targets, y_score)
@@ -236,9 +236,9 @@ def roc():
 
 def main():
     #dataset = extract_features_from_old_data(featureRepresentation='glcm', glcm_distance=1, glcm_isMultidirectional=True)
-    #Helper.serialize("Datasets/old_data.data", dataset)
+    #Helper.serialize("../Datasets/old_data.data", dataset)
     dataset = Helper.extract_features_from_new_data(featureRepresentation='glcm', glcm_distance=1, glcm_isMultidirectional=True, train_size=0.75)
-    Helper.serialize("Datasets/new_data_glcm_d1_a4_75_25.data", dataset)
-    build_model('glcm', dataset_file="Datasets/new_data_glcm_d1_a4_75_25.data", iters=4, glcm_isMultidirectional=True)
+    Helper.serialize("../Datasets/new_data_glcm_d1_a4_75_25.data", dataset)
+    build_model('glcm', dataset_file="../Datasets/new_data_glcm_d1_a4_75_25.data", iters=4, glcm_isMultidirectional=True)
 
 #main()

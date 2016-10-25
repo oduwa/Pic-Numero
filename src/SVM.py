@@ -15,14 +15,14 @@ import os, sys, shutil, timeit
 import tqdm
 
 # The name of the file where we will store serialized classifier
-SVM_FILE = 'Models/SVM_d1_a4_olddata.data'
+SVM_FILE = '../Models/SVM_d1_a4_olddata.data'
 
 def get_model(filename=SVM_FILE):
     ''' Fetch SVM classifier object from file'''
     classifier = Helper.unserialize(filename)
 
     if(classifier == None):
-        classifier = build_model('glcm', dataset_file='Datasets/old_data.data')
+        classifier = build_model('glcm', dataset_file='../Datasets/old_data.data')
         Helper.serialize(filename, classifier)
 
     return classifier
@@ -50,13 +50,13 @@ def build_model(featureRepresentation='image', dataset_file=None, iters=10, glcm
     if(dataset_file == None):
         # Load train data
         train_filenames = []
-        for filename in os.listdir("train/positive"):
-            if(filename != ".DS_Store"): train_filenames.append("train/positive/" + filename)
-        train_targets = [1]*(len(os.listdir("train/positive"))-1)
+        for filename in os.listdir("../train/positive"):
+            if(filename != ".DS_Store"): train_filenames.append("../train/positive/" + filename)
+        train_targets = [1]*(len(os.listdir("../train/positive"))-1)
 
-        for filename in os.listdir("train/negative"):
-            if(filename != ".DS_Store"): train_filenames.append("train/negative/" + filename)
-        train_targets = train_targets + [0]*(len(os.listdir("train/negative"))-1)
+        for filename in os.listdir("../train/negative"):
+            if(filename != ".DS_Store"): train_filenames.append("../train/negative/" + filename)
+        train_targets = train_targets + [0]*(len(os.listdir("../train/negative"))-1)
 
         n_train_samples = len(train_filenames)
         if(featureRepresentation == 'glcm'):
@@ -84,7 +84,7 @@ def build_model(featureRepresentation='image', dataset_file=None, iters=10, glcm
         expected = []
         for filename in os.listdir("test"):
             if(filename != ".DS_Store"):
-                test_filenames.append("test/" + filename)
+                test_filenames.append("../test/" + filename)
                 expected.append(int(filename.split('_')[1].split('.')[0]))
 
         n_test_samples = len(test_filenames)
@@ -205,7 +205,7 @@ def classify(img, featureRepresentation='image', shouldSaveResult=False):
 
 def main():
     dataset = Helper.extract_features_from_old_data(featureRepresentation='glcm', glcm_distance=1, glcm_isMultidirectional=True)
-    Helper.serialize("Datasets/old_data.data", dataset)
+    Helper.serialize("../Datasets/old_data.data", dataset)
 
 #main();
-#print(timeit.timeit("SVM.build_model(\'glcm\', dataset_file=\"Datasets/old_data.data\", iters=50, glcm_isMultidirectional=True)", setup="import SVM",  number=1))
+#print(timeit.timeit("SVM.build_model(\'glcm\', dataset_file=\"../Datasets/old_data.data\", iters=50, glcm_isMultidirectional=True)", setup="import SVM",  number=1))

@@ -147,6 +147,6 @@ def match_templates_2(search_image, template_image, n=1):
 
 
 
-search_image = rgb2gray(misc.imread("Assets/bush.png"))
-template_image = rgb2gray(misc.imread("Assets/grain.png"))
+search_image = rgb2gray(misc.imread("../Assets/bush.png"))
+template_image = rgb2gray(misc.imread("../Assets/grain.png"))
 match_templates_1(search_image, template_image, 1);

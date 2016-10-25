@@ -32,7 +32,7 @@ def blockfunc(block):
 
 ################### COUNTING BY REGRESSION #####################################
 
-def run_with_glcm(image_filename="Wheat_Images/004.jpg"):
+def run_with_glcm(image_filename="../Wheat_Images/004.jpg"):
     '''
 	Estimates the number of grains in a given image using a
 	regression approach and glcm features.
@@ -51,7 +51,7 @@ def run_with_glcm(image_filename="Wheat_Images/004.jpg"):
 
 ################### COUNTING BY DETECTION #####################################
 
-def run_with_svm(image_filename="Wheat_Images/004.jpg", ser_filename=None):
+def run_with_svm(image_filename="../Wheat_Images/004.jpg", ser_filename=None):
     '''
 	Estimates the number of grains in a given image using a
 	Support Vector Machine.
@@ -71,8 +71,8 @@ def run_with_svm(image_filename="Wheat_Images/004.jpg", ser_filename=None):
 
     # Chop image up into sub-images and serilaise or just load serialised data if
     # it already exists.
-    if(ser_filename == None and image_filename == "Wheat_Images/004.jpg"):
-		ser_filename = "Wheat_Images/xxx_004.data"
+    if(ser_filename == None and image_filename == "../Wheat_Images/004.jpg"):
+		ser_filename = "../Wheat_Images/xxx_004.data"
     if(Helper.unserialize(ser_filename) == None):
         img = img_as_ubyte(io.imread(image_filename))
         roi_img = spectral_roi.extract_roi(img, [1])
@@ -89,7 +89,7 @@ def run_with_svm(image_filename="Wheat_Images/004.jpg", ser_filename=None):
     print("COUNT: {}".format(count))
     return count
 
-def run_with_mlp(image_filename="Wheat_Images/004.jpg", ser_filename=None):
+def run_with_mlp(image_filename="../Wheat_Images/004.jpg", ser_filename=None):
     '''
 	Estimates the number of grains in a given image using a
 	Multilayer Perceptron neural network.
@@ -108,8 +108,8 @@ def run_with_mlp(image_filename="Wheat_Images/004.jpg", ser_filename=None):
 
     # Chop image up into sub-images and serilaise or just load serialised data if
     # it already exists.
-    if(ser_filename == None and image_filename == "Wheat_Images/004.jpg"):
-		ser_filename = "Wheat_Images/xxx_004.data"
+    if(ser_filename == None and image_filename == "../Wheat_Images/004.jpg"):
+		ser_filename = "../Wheat_Images/xxx_004.data"
     if(Helper.unserialize(ser_filename) == None):
         img = img_as_ubyte(io.imread(image_filename))
         roi_img = spectral_roi.extract_roi(img, [1])
@@ -127,7 +127,7 @@ def run_with_mlp(image_filename="Wheat_Images/004.jpg", ser_filename=None):
     print("COUNT: {}".format(count))
     return count
 
-def run_with_cnn(image_filename="Wheat_Images/004.jpg", ser_filename=None):
+def run_with_cnn(image_filename="../Wheat_Images/004.jpg", ser_filename=None):
     '''
 	Estimates the number of grains in a given image using a
 	Convolutional neural network.
@@ -147,8 +147,8 @@ def run_with_cnn(image_filename="Wheat_Images/004.jpg", ser_filename=None):
 
     # Chop image up into sub-images and serilaise or just load serialised data if
     # it already exists.
-    if(ser_filename == None and image_filename == "Wheat_Images/004.jpg"):
-		ser_filename = "Wheat_Images/xxx_004.data"
+    if(ser_filename == None and image_filename == "../Wheat_Images/004.jpg"):
+		ser_filename = "../Wheat_Images/xxx_004.data"
     if(Helper.unserialize(ser_filename) == None):
         img = img_as_ubyte(io.imread(image_filename))
         roi_img = spectral_roi.extract_roi(img, [1])

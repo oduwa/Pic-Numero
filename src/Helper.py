@@ -138,13 +138,13 @@ def save_feature_dataset(ser_filename,
     '''
     # Load train data
     train_filenames = []
-    for filename in os.listdir("train/positive"):
-     if(filename != ".DS_Store"): train_filenames.append("train/positive/" + filename)
-    train_targets = [1]*(len(os.listdir("train/positive"))-1)
+    for filename in os.listdir("../train/positive"):
+     if(filename != ".DS_Store"): train_filenames.append("../train/positive/" + filename)
+    train_targets = [1]*(len(os.listdir("../train/positive"))-1)
 
-    for filename in os.listdir("train/negative"):
-     if(filename != ".DS_Store"): train_filenames.append("train/negative/" + filename)
-    train_targets = train_targets + [0]*(len(os.listdir("train/negative"))-1)
+    for filename in os.listdir("../train/negative"):
+     if(filename != ".DS_Store"): train_filenames.append("../train/negative/" + filename)
+    train_targets = train_targets + [0]*(len(os.listdir("../train/negative"))-1)
 
     n_train_samples = len(train_filenames)
     if(featureRepresentation == 'glcm'):
@@ -172,7 +172,7 @@ def save_feature_dataset(ser_filename,
     expected = []
     for filename in os.listdir("test"):
      if(filename != ".DS_Store"):
-         test_filenames.append("test/" + filename)
+         test_filenames.append("../test/" + filename)
          expected.append(int(filename.split('_')[1].split('.')[0]))
 
     n_test_samples = len(test_filenames)
@@ -215,13 +215,13 @@ def extract_features_from_old_data(featureRepresentation='image', glcm_distance=
     '''
     # Load train data
     train_filenames = []
-    for filename in os.listdir("train/positive"):
-        if(filename != ".DS_Store"): train_filenames.append("train/positive/" + filename)
-    train_targets = [1]*(len(os.listdir("train/positive"))-1)
+    for filename in os.listdir("../train/positive"):
+        if(filename != ".DS_Store"): train_filenames.append("../train/positive/" + filename)
+    train_targets = [1]*(len(os.listdir("../train/positive"))-1)
 
-    for filename in os.listdir("train/negative"):
-        if(filename != ".DS_Store"): train_filenames.append("train/negative/" + filename)
-    train_targets = train_targets + [0]*(len(os.listdir("train/negative"))-1)
+    for filename in os.listdir("../train/negative"):
+        if(filename != ".DS_Store"): train_filenames.append("../train/negative/" + filename)
+    train_targets = train_targets + [0]*(len(os.listdir("../train/negative"))-1)
 
     n_train_samples = len(train_filenames)
     if(featureRepresentation == 'glcm'):
@@ -249,7 +249,7 @@ def extract_features_from_old_data(featureRepresentation='image', glcm_distance=
     expected = []
     for filename in os.listdir("test"):
         if(filename != ".DS_Store"):
-            test_filenames.append("test/" + filename)
+            test_filenames.append("../test/" + filename)
             expected.append(int(filename.split('_')[1].split('.')[0]))
 
     n_test_samples = len(test_filenames)
@@ -297,7 +297,7 @@ def extract_features_from_new_data(featureRepresentation='image', glcm_distance=
     targets = []
     for filename in os.listdir("grain_images"):
         if(filename != ".DS_Store"):
-            image_filenames.append("grain_images/" + filename)
+            image_filenames.append("../grain_images/" + filename)
             targets.append(int(filename.split('_')[1].split('.')[0]))
 
     if(featureRepresentation == 'glcm'):

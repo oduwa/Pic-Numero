@@ -16,7 +16,7 @@ import tqdm
 
 
 # The name of the file where we will store serialized classifier
-MLP_FILE = 'Models/MLP_glcmdistance1.data'#'Models/MLP.data'
+MLP_FILE = '../Models/MLP_glcmdistance1.data'#'../Models/MLP.data'
 
 def get_textural_features(img):
     img = img_as_ubyte(rgb2gray(img))
@@ -32,13 +32,13 @@ def get_textural_features(img):
 def main(featureRepresentation='image'):
     # Load train data
     train_filenames = []
-    for filename in os.listdir("train/positive"):
-        if(filename != ".DS_Store"): train_filenames.append("train/positive/" + filename)
-    train_targets = [1]*(len(os.listdir("train/positive"))-1)
+    for filename in os.listdir("../train/positive"):
+        if(filename != ".DS_Store"): train_filenames.append("../train/positive/" + filename)
+    train_targets = [1]*(len(os.listdir("../train/positive"))-1)
 
-    for filename in os.listdir("train/negative"):
-        if(filename != ".DS_Store"): train_filenames.append("train/negative/" + filename)
-    train_targets = train_targets + [0]*(len(os.listdir("train/negative"))-1)
+    for filename in os.listdir("../train/negative"):
+        if(filename != ".DS_Store"): train_filenames.append("../train/negative/" + filename)
+    train_targets = train_targets + [0]*(len(os.listdir("../train/negative"))-1)
 
     n_train_samples = len(train_filenames)
     if(featureRepresentation == 'glcm'):
@@ -66,7 +66,7 @@ def main(featureRepresentation='image'):
     expected = []
     for filename in os.listdir("test"):
         if(filename != ".DS_Store"):
-            test_filenames.append("test/" + filename)
+            test_filenames.append("../test/" + filename)
             expected.append(int(filename.split('_')[1].split('.')[0]))
 
     n_test_samples = len(test_filenames)
@@ -119,13 +119,13 @@ def main(featureRepresentation='image'):
 def generate_model(featureRepresentation='image', iters=10):
     # Load train data
     train_filenames = []
-    for filename in os.listdir("train/positive"):
-        if(filename != ".DS_Store"): train_filenames.append("train/positive/" + filename)
-    train_targets = [1]*(len(os.listdir("train/positive"))-1)
+    for filename in os.listdir("../train/positive"):
+        if(filename != ".DS_Store"): train_filenames.append("../train/positive/" + filename)
+    train_targets = [1]*(len(os.listdir("../train/positive"))-1)
 
-    for filename in os.listdir("train/negative"):
-        if(filename != ".DS_Store"): train_filenames.append("train/negative/" + filename)
-    train_targets = train_targets + [0]*(len(os.listdir("train/negative"))-1)
+    for filename in os.listdir("../train/negative"):
+        if(filename != ".DS_Store"): train_filenames.append("../train/negative/" + filename)
+    train_targets = train_targets + [0]*(len(os.listdir("../train/negative"))-1)
 
     n_train_samples = len(train_filenames)
     if(featureRepresentation == 'glcm'):
@@ -150,7 +150,7 @@ def generate_model(featureRepresentation='image', iters=10):
     expected = []
     for filename in os.listdir("test"):
         if(filename != ".DS_Store"):
-            test_filenames.append("test/" + filename)
+            test_filenames.append("../test/" + filename)
             expected.append(int(filename.split('_')[1].split('.')[0]))
 
     n_test_samples = len(test_filenames)

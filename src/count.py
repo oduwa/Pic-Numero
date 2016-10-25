@@ -27,7 +27,7 @@ def main():
     # For each ROI image in folder
     for i in tqdm.tqdm(range(1, numberOfImages+1)):
         # Load image
-        filename = "Wheat_ROIs/{:03d}_ROI.png".format(i);
+        filename = "../Wheat_ROIs/{:03d}_ROI.png".format(i);
         img = misc.imread(filename);
         img_gray = rgb2gray(img);
 
@@ -44,7 +44,7 @@ def main():
             y, x, r = blob
             c = plt.Circle((x, y), r, color='red', linewidth=2, fill=False)
             ax.add_patch(c)
-        fig.savefig("Wheat_ROIs/{:03d}_Blob.png".format(i))
+        fig.savefig("../Wheat_ROIs/{:03d}_Blob.png".format(i))
 
 
 

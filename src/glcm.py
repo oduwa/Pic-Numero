@@ -12,7 +12,7 @@ from sklearn import linear_model
 PATCH_SIZE = 50
 FEATURE_SIZE = 4
 COUNTS = [65*22, 80*22, 87*22, 40*22, 71*22, 58*22, 77*22, 68*22, 67*22, 61*22, 46*22, 57*22] # started with 1 and 2
-LIN_REGRESSION_MODEL_NAME = "Models/regression.data"
+LIN_REGRESSION_MODEL_NAME = "../Models/regression.data"
 
 def train():
     '''
@@ -36,7 +36,7 @@ def train():
     # For each ROI image in folder
     for i in range(1, numberOfImages+1):
         # Load image
-        filename = "Wheat_Images/{:03d}.jpg".format(i);
+        filename = "../Wheat_Images/{:03d}.jpg".format(i);
         img = misc.imread(filename);
         img_gray = img_as_ubyte(rgb2gray(img));
 
@@ -85,7 +85,7 @@ def count(filename, model):
 def plot_glcm_properties():
     '''Plots different GLCM properties of different areas of the wheat image
     in order to visualise how the GLCM can split/discriminate between them.'''
-    image = img_as_ubyte(rgb2gray(misc.imread("Assets/wheat.png")));
+    image = img_as_ubyte(rgb2gray(misc.imread("../Assets/wheat.png")));
     #Display.show_image(image, isGray=True)
 
     # select some patches from different areas of the image
@@ -163,7 +163,7 @@ def plot_residuals():
     # Get feautures
     for i in range(1, numberOfImages):
         # Load image
-        filename = "Wheat_Images/{:03d}.jpg".format(i);
+        filename = "../Wheat_Images/{:03d}.jpg".format(i);
         img = misc.imread(filename);
         img_gray = img_as_ubyte(rgb2gray(img));
         glcm = greycomatrix(img_gray, [5], [0], 256, symmetric=True, normed=True)

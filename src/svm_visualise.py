@@ -14,13 +14,13 @@ import os, sys
 
 # Load train data
 train_filenames = []
-for filename in os.listdir("train/positive"):
-    if(filename != ".DS_Store"): train_filenames.append("train/positive/" + filename)
-train_targets = [1]*(len(os.listdir("train/positive"))-1)
+for filename in os.listdir("../train/positive"):
+    if(filename != ".DS_Store"): train_filenames.append("../train/positive/" + filename)
+train_targets = [1]*(len(os.listdir("../train/positive"))-1)
 
-for filename in os.listdir("train/negative"):
-    if(filename != ".DS_Store"): train_filenames.append("train/negative/" + filename)
-train_targets = train_targets + [0]*(len(os.listdir("train/negative"))-1)
+for filename in os.listdir("../train/negative"):
+    if(filename != ".DS_Store"): train_filenames.append("../train/negative/" + filename)
+train_targets = train_targets + [0]*(len(os.listdir("../train/negative"))-1)
 
 n_train_samples = len(train_filenames)
 sample_size = 20*20
@@ -35,7 +35,7 @@ for filename in train_filenames:
 # Load test data
 test_filenames = []
 for filename in os.listdir("test"):
-    if(filename != ".DS_Store"): test_filenames.append("test/" + filename)
+    if(filename != ".DS_Store"): test_filenames.append("../test/" + filename)
 
 n_test_samples = len(test_filenames)
 test_data = np.zeros((n_test_samples, sample_size))
@@ -47,7 +47,7 @@ for filename in test_filenames:
 
 
 # Visualise
-n_positives = len(os.listdir("train/positive"))-1
+n_positives = len(os.listdir("../train/positive"))-1
 train_data_reduced = decomposition.PCA(n_components=2).fit_transform(train_data)
 positives = decomposition.PCA(n_components=2).fit_transform(train_data[:n_positives])
 negatives = decomposition.PCA(n_components=2).fit_transform(train_data[n_positives:])

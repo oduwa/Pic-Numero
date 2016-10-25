@@ -7,7 +7,7 @@ from skimage.color import rgb2gray
 # Blob detection as a potential feature representation because of how it might be
 # able to represent the dense areas of the wheat images.
 
-image = misc.imread("Assets/001_ROI.png");
+image = misc.imread("../Assets/001_ROI.png");
 image_gray = rgb2gray(image);
 
 blobs = blob_doh(image_gray, min_sigma=1, max_sigma=100, threshold=.01)

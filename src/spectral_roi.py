@@ -37,7 +37,7 @@ def experiment_with_parameters():
 
     Saves the results to the Clusters folder for inspection.
     '''
-    img = misc.imread("Assets/wheat.png")
+    img = misc.imread("../Assets/wheat.png")
 
     compactness_values = [30, 50, 70, 100, 200, 300, 500, 700, 1000]
     n_segments_values = [3,4,5,6,7,8,9,10]
@@ -50,7 +50,7 @@ def experiment_with_parameters():
             fig, ax = plt.subplots()
             ax.imshow(out1, interpolation='nearest')
             ax.set_title("Compactness: {} | Segments: {}".format(compactness_val, n))
-            plt.savefig("Clusters/c{}_k{}.png".format(compactness_val, n))
+            plt.savefig("../Clusters/c{}_k{}.png".format(compactness_val, n))
             plt.close(fig)
 
 def extract_roi(img, labels_to_keep=[1,2]):

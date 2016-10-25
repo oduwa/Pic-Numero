@@ -152,7 +152,7 @@ class AppWindow(QtGui.QWidget):
 
       # Create image display label and add to layout
       self.imageLabel = QtGui.QLabel(self)
-      updateLabelToShowImage(self.getImageLabel(), "Assets/placeholder.png", self.frameSize().width()*0.5, self.frameSize().height()*0.5)
+      updateLabelToShowImage(self.getImageLabel(), "../Assets/placeholder.png", self.frameSize().width()*0.5, self.frameSize().height()*0.5)
       self.display_section.addRow(self.imageLabel)
 
       # Create checkboxes and add them to layout
