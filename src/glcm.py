@@ -21,7 +21,8 @@ def train():
     Returns:
         linear regression model
     '''
-    numberOfImages = 12;
+    if(Helper.unserialize(LIN_REGRESSION_MODEL_NAME) == None):
+        numberOfImages = 12;
 
     # TODO: AUTOMATICALLY GET NUMBER OF IMAGES
     # Get number of images. Remeber to divide by 2 as for every relevant image,
@@ -158,7 +159,7 @@ def plot_residuals():
     numberOfImages = 12
     residuals = []
     featureList = np.zeros((numberOfImages, FEATURE_SIZE))
-    model = get_model()
+    model = train()
 
     # Get feautures
     for i in range(1, numberOfImages):
@@ -197,3 +198,7 @@ def plot_residuals():
     plt.ylim(ymin=0)
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
+
+    plt.show()
+
+#plot_residuals()
