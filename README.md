@@ -8,7 +8,7 @@ First, to train the system to identify objects you want, all you have to do is p
 
 Then in your code be sure to add `from PicNumero import PicNumero`.
 
-You can then use the `python PicNumero.run_with_svm()` `python PicNumero.run_with_mlp()` or python PicNumero.run_with_cnn()` with the filename of the image whose objects are to be counted as the argument.
+You can then use the `python PicNumero.run_with_svm()` `python PicNumero.run_with_mlp()` or `python PicNumero.run_with_cnn()` with the filename of the image whose objects are to be counted as the argument.
 
 ```python
 from PicNumero import PicNumero
