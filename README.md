@@ -13,7 +13,7 @@ You can then use the `python PicNumero.run_with_svm()` `python PicNumero.run_wit
 ```python
 from PicNumero import PicNumero
 
-imagePath = "Desktop/Images/image.png"
+imagePath = "Path/To/Your/Image.png"
 count = PicNumero.run_with_cnn(imagePath)
 ```
 
