@@ -77,5 +77,5 @@ def extract_roi(img, labels_to_keep=[1,2]):
             logicalIndex = (label_img == label)
             gray[logicalIndex] = 0;
 
-    Display.show_image(gray)
+    #Display.show_image(gray)
     return gray
