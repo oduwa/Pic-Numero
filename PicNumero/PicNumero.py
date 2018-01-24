@@ -166,5 +166,3 @@ def run_with_cnn(image_filename="../Wheat_Images/004.jpg", ser_filename=None):
     return count
 
 
-
-run_with_svm()
