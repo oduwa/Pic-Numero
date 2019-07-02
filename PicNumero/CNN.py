@@ -21,19 +21,74 @@ from tensorflow.contrib import learn as skflow
 # The name of the file where we will store serialized classifier
 CLASSIFIER_FILE = '../Models/CNN_d1_a4'
 
+def get_textural_features(img):
+    img = img_as_ubyte(rgb2gray(img))
+    glcm = greycomatrix(img, [1], [0], 256, symmetric=True, normed=True)
+    dissimilarity = greycoprops(glcm, 'dissimilarity')[0, 0]
+    correlation = greycoprops(glcm, 'correlation')[0, 0]
+    homogeneity = greycoprops(glcm, 'homogeneity')[0, 0]
+    energy = greycoprops(glcm, 'energy')[0, 0]
+    feature = np.array([dissimilarity, correlation, homogeneity, energy])
+    return feature
+
+def get_featureset(featureRepresentation='glcm'):
+    train_filenames = []
+    for filename in os.listdir("../train/positive"):
+        if(filename != ".DS_Store"): train_filenames.append("../train/positive/" + filename)
+    train_targets = [1]*(len(os.listdir("../train/positive"))-1)
+
+    for filename in os.listdir("../train/negative"):
+        if(filename != ".DS_Store"): train_filenames.append("../train/negative/" + filename)
+    train_targets = train_targets + [0]*(len(os.listdir("../train/negative"))-1)
+
+    n_train_samples = len(train_filenames)
+    if(featureRepresentation == 'glcm'):
+        sample_size = 4
+    else:
+        sample_size = 20*20
+    train_data = np.zeros((n_train_samples, sample_size))
+    i = 0
+    for filename in train_filenames:
+        img = io.imread(filename)
+        if(featureRepresentation == 'image'):
+            train_data[i] = img.flatten()
+        elif(featureRepresentation == 'pca'):
+            train_data[i] = ecomposition.PCA(n_components=8).fit_transform(img.flatten())
+        elif(featureRepresentation == 'glcm'):
+            train_data[i] = get_textural_features(img)
+        i = i + 1;
+
+
+    # Load test data
+    test_filenames = []
+    expected = []
+    for filename in os.listdir("../test"):
+        if(filename != ".DS_Store"):
+            test_filenames.append("../test/" + filename)
+            expected.append(int(filename.split('_')[1].split('.')[0]))
+
+    n_test_samples = len(test_filenames)
+    test_data = np.zeros((n_test_samples, sample_size))
+    i = 0
+    for filename in test_filenames:
+        img = io.imread(filename)
+        if(featureRepresentation == 'image'):
+            test_data[i] = img.flatten()
+        elif(featureRepresentation == 'pca'):
+            test_data[i] = ecomposition.PCA(n_components=8).fit_transform(img.flatten())
+        elif(featureRepresentation == 'glcm'):
+            test_data[i] = get_textural_features(img)
+        i = i + 1;
+
+        return train_data, train_targets, test_data, expected
+
+
 def get_model(filename=CLASSIFIER_FILE):
     ''' Get CNN classifier object from file or create one if none exists on file.'''
     if(filename == None):
         # Load dataset
         print(Helper.unserialize("../Datasets/raw_new_80.data"))
-        train_data, train_targets, test_data, expected = Helper.unserialize("../Datasets/raw_new_80.data")
-        train_data2, train_targets2, test_data2, expected2 = Helper.unserialize("../Datasets/raw.data")
-
-        train_data = np.concatenate((train_data, train_data2), axis=0)
-        train_targets = np.concatenate((train_targets, train_targets2), axis=0)
-        test_data = np.concatenate((test_data, test_data2), axis=0)
-        expected = np.concatenate((expected, expected2), axis=0)
-        print(train_data.shape)
+        train_data, train_targets, test_data, expected = get_featureset('raw')
 
         raw_train_data = np.zeros((train_data.shape[0], 20, 20))
         i = 0
