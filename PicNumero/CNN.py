@@ -25,6 +25,7 @@ def get_model(filename=CLASSIFIER_FILE):
     ''' Get CNN classifier object from file or create one if none exists on file.'''
     if(filename == None):
         # Load dataset
+        print(Helper.unserialize("../Datasets/raw_new_80.data"))
         train_data, train_targets, test_data, expected = Helper.unserialize("../Datasets/raw_new_80.data")
         train_data2, train_targets2, test_data2, expected2 = Helper.unserialize("../Datasets/raw.data")
 
@@ -52,9 +53,7 @@ def get_model(filename=CLASSIFIER_FILE):
         # Build Classifier
         # classifier = skflow.TensorFlowEstimator(model_fn=multilayer_conv_model, n_classes=2,
         #                                         steps=500, learning_rate=0.05, batch_size=128)
-        classifier = skflow.TensorFlowEstimator(model_fn=conv_model, n_classes=2,
-                                                steps=500, learning_rate=0.05, batch_size=128,
-                                                optimizer='Ftrl')
+        classifier = skflow.DNNClassifier(feature_engineering_fn=conv_model, n_classes=2)
         classifier.fit(raw_train_data, train_targets)
 
         # Assess built classifier
