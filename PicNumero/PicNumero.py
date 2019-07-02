@@ -114,7 +114,7 @@ def run_with_mlp(image_filename="../Wheat_Images/004.jpg", ser_filename=None):
         img = img_as_ubyte(io.imread(image_filename))
         roi_img = spectral_roi.extract_roi(img, [1])
         Helper.block_proc(roi_img, (20,20), blockfunc)
-#Helper.serialize(ser_filename, img_data)
+        #Helper.serialize(ser_filename, img_data)
     else:
         img_data = Helper.unserialize(ser_filename)
 
@@ -164,6 +164,3 @@ def run_with_cnn(image_filename="../Wheat_Images/004.jpg", ser_filename=None):
     count = r.tolist().count(1)
     print("COUNT: {}".format(count))
     return count
-
-
-
